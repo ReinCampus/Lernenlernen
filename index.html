@@ -4,318 +4,337 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lerntypentest</title>
-<meta name="description" content="Finde in 5 Minuten heraus, über welche Sinneskanäle du (oder dein Kind) am leichtesten lernst – mit sofortiger Auswertung.">
+<meta name="description" content="Finde in wenigen Minuten heraus, ob du Checker, Macher, Lauscher oder Schnacker bist – mit sofortiger Auswertung direkt auf der Seite.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1b2a44;
-    --ink-soft:#4b5568;
-    --paper:#faf3e2;
-    --surface:#ffffff;
-    --surface-2:#fdf9ee;
-    --line:#e4d6b6;
-    --accent:#c07f1f;
-    --accent-strong:#9c6414;
-    --accent-tint:#f2dcae;
-    --accent2:#2a6a60;
-    --accent2-tint:#d9ebe6;
-    --focus:#1b2a44;
-    --shadow: 0 1px 2px rgba(27,42,68,.06), 0 8px 24px -12px rgba(27,42,68,.18);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --ink:#ece6d6;
-      --ink-soft:#a9aec0;
-      --paper:#12151d;
-      --surface:#1b2028;
-      --surface-2:#1f2530;
-      --line:#2c3340;
-      --accent:#e3ab52;
-      --accent-strong:#f0c179;
-      --accent-tint:#3a3020;
-      --accent2:#54a698;
-      --accent2-tint:#1c2e2c;
-      --focus:#e3ab52;
-      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 28px -14px rgba(0,0,0,.6);
-    }
-  }
-  :root[data-theme="dark"]{
-    --ink:#ece6d6;
-    --ink-soft:#a9aec0;
-    --paper:#12151d;
-    --surface:#1b2028;
-    --surface-2:#1f2530;
-    --line:#2c3340;
-    --accent:#e3ab52;
-    --accent-strong:#f0c179;
-    --accent-tint:#3a3020;
-    --accent2:#54a698;
-    --accent2-tint:#1c2e2c;
-    --focus:#e3ab52;
-    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 28px -14px rgba(0,0,0,.6);
+    --bg:#0c3b3d;
+    --bg-2:#12787a;
+    --bg-2-deep:#0d5f60;
+    --panel-dark:#092d2e;
+    --panel-dark-2:#0a3436;
+    --ink:#ffffff;
+    --ink-soft:#cfe9e7;
+    --ink-mute:#8fb8b6;
+    --accent-pink:#ee1d78;
+    --accent-pink-strong:#c8135f;
+    --teal-pop:#1fc9bf;
+    --line:rgba(255,255,255,.14);
+    --focus:#1fc9bf;
+    --shadow-tag: 4px 6px 0 rgba(0,0,0,.28);
   }
 
   *{box-sizing:border-box;}
+  html,body{background:var(--bg);}
   body{
     margin:0;
-    background:var(--paper);
     color:var(--ink);
-    font-family:'Literata', Georgia, 'Times New Roman', serif;
-    line-height:1.5;
+    font-family:'Mulish', system-ui, sans-serif;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
   .wrap{
     max-width:760px;
     margin:0 auto;
-    padding:2.5rem 1.25rem 4rem;
+    padding:2.4rem 1.25rem 4.5rem;
   }
   h1,h2,h3,.display{
-    font-family:'Archivo', system-ui, sans-serif;
+    font-family:'Baloo 2', system-ui, sans-serif;
     text-wrap:balance;
-    letter-spacing:-0.01em;
   }
-  .eyebrow{
-    font-family:'Archivo', system-ui, sans-serif;
-    font-weight:700;
-    font-size:0.72rem;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--accent-strong);
-    margin:0 0 .4rem;
-  }
+
   .brand{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:1rem;
-    margin-bottom:2.2rem;
-  }
-  .brand-mark{
-    font-family:'Archivo Black', system-ui, sans-serif;
-    font-size:1.05rem;
-    letter-spacing:-0.01em;
-  }
-  .brand-mark span{color:var(--accent);}
-  .theme-note{
-    font-family:'Archivo', system-ui, sans-serif;
-    font-size:.72rem;
-    color:var(--ink-soft);
-  }
-
-  /* ---- Cards / surfaces ---- */
-  .card{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:18px;
-    box-shadow:var(--shadow);
-  }
-
-  /* ---- Intro screen ---- */
-  #screen-intro .card{padding:2.2rem 2rem;}
-  .intro-title{
-    font-family:'Archivo Black', system-ui, sans-serif;
-    font-size:clamp(1.9rem, 5vw, 2.6rem);
-    line-height:1.05;
-    margin:0 0 .9rem;
-  }
-  .intro-lede{
-    font-size:1.05rem;
-    color:var(--ink-soft);
-    max-width:56ch;
-    margin:0 0 1.6rem;
-  }
-  .senses-list{
-    list-style:none;
-    margin:0 0 1.8rem;
-    padding:0;
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
-    gap:.6rem;
-  }
-  .senses-list li{
-    display:flex;
-    align-items:center;
-    gap:.55rem;
-    font-family:'Archivo', system-ui, sans-serif;
-    font-size:.86rem;
-    font-weight:600;
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:11px;
-    padding:.55rem .7rem;
-  }
-  .senses-list svg{flex:none;}
-  .mode-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:.85rem;
-    margin-top:.4rem;
-  }
-  @media (max-width:520px){ .mode-row{grid-template-columns:1fr;} }
-  .mode-btn{
-    font-family:'Archivo', system-ui, sans-serif;
+    font-family:'Baloo 2', system-ui, sans-serif;
     font-weight:700;
     font-size:1rem;
-    text-align:left;
-    display:flex;
-    flex-direction:column;
-    gap:.15rem;
-    padding:1rem 1.1rem;
-    border-radius:14px;
-    border:1.5px solid var(--line);
-    background:var(--surface-2);
+    color:var(--ink-soft);
+    margin-bottom:1.6rem;
+    letter-spacing:.01em;
+  }
+  .brand span{color:var(--teal-pop);}
+
+  /* ---- Intro ---- */
+  #screen-intro{display:block;}
+  .tag-banner{
+    display:inline-block;
+    background:var(--bg-2);
     color:var(--ink);
-    cursor:pointer;
-    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:700;
+    font-size:clamp(1.3rem, 4vw, 1.85rem);
+    padding:.85rem 1.6rem;
+    border-radius:6px;
+    transform:rotate(-2deg);
+    box-shadow:var(--shadow-tag);
+    margin:0 0 2rem;
   }
-  .mode-btn small{
-    font-family:'Literata', serif;
-    font-weight:400;
-    font-style:italic;
+  .intro-copy p{
     color:var(--ink-soft);
-    font-size:.82rem;
+    font-size:1.05rem;
+    max-width:62ch;
+    margin:0 0 1.1rem;
   }
-  .mode-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
-  .mode-btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
-  .mode-btn.primary{background:var(--accent-tint); border-color:var(--accent);}
-  .fineprint{
-    font-family:'Archivo', system-ui, sans-serif;
-    font-size:.76rem;
-    color:var(--ink-soft);
-    margin-top:1.1rem;
-  }
+  .intro-copy p:last-child{margin-bottom:0;}
 
-  /* ---- Progress rail ---- */
-  #screen-quiz{display:none;}
-  .rail{
-    display:flex;
-    gap:.4rem;
-    margin-bottom:1.1rem;
+  .type-panel{
+    background:var(--panel-dark-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:2rem 1.9rem 1.8rem;
+    margin:2.2rem 0 1.7rem;
   }
-  .rail-step{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:.35rem;
-    font-family:'Archivo', system-ui, sans-serif;
+  .type-panel h2{
+    font-size:clamp(1.5rem,4vw,1.9rem);
+    margin:0 0 1.5rem;
   }
-  .rail-dot{
-    width:38px; height:38px;
+  .type-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1.1rem;
+    margin-bottom:1.9rem;
+  }
+  @media (max-width:640px){ .type-grid{grid-template-columns:repeat(2,1fr);} }
+  .type-item{text-align:center;}
+  .type-icon{
+    width:64px; height:64px;
+    margin:0 auto .7rem;
     border-radius:50%;
+    background:var(--bg-2-deep);
+    border:2px solid var(--teal-pop);
     display:flex; align-items:center; justify-content:center;
-    background:var(--surface-2);
-    border:1.5px solid var(--line);
+  }
+  .type-item h3{
+    font-size:1rem;
+    margin:0 0 .35rem;
+  }
+  .type-item p{
+    font-size:.83rem;
     color:var(--ink-soft);
-    transition:background .2s ease, border-color .2s ease, color .2s ease;
+    margin:0;
   }
-  .rail-step.done .rail-dot{background:var(--accent2-tint); border-color:var(--accent2); color:var(--accent2);}
-  .rail-step.active .rail-dot{background:var(--accent); border-color:var(--accent); color:var(--surface);}
-  .rail-bar{height:3px; background:var(--line); border-radius:3px; margin:0 -1px; position:relative; top:-19px; z-index:-1;}
-  .rail-label{font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); text-align:center;}
-  .rail-step.active .rail-label{color:var(--ink);}
 
-  .quiz-card{padding:1.9rem 1.9rem 1.6rem;}
-  .quiz-kicker{
-    display:flex; align-items:center; gap:.6rem;
-    margin-bottom:.3rem;
+  button.cta{
+    display:block;
+    width:100%;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--ink);
+    background:var(--accent-pink);
+    border:none;
+    border-radius:12px;
+    padding:1.05rem 1.5rem;
+    cursor:pointer;
+    box-shadow:0 6px 0 var(--accent-pink-strong);
+    transition:transform .12s ease, box-shadow .12s ease;
   }
-  .quiz-kicker .rail-dot{width:30px;height:30px;background:var(--accent-tint); border-color:var(--accent); color:var(--accent-strong);}
-  .quiz-title{
-    font-size:1.5rem;
-    margin:.2rem 0 1.1rem;
+  button.cta:hover{transform:translateY(2px); box-shadow:0 4px 0 var(--accent-pink-strong);}
+  button.cta:active{transform:translateY(6px); box-shadow:0 0 0 var(--accent-pink-strong);}
+  button.cta:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
+
+  .fineprint{
+    font-size:.8rem;
+    color:var(--ink-mute);
+    text-align:center;
+    margin-top:1rem;
   }
-  .statement{
+
+  /* ---- Quiz ---- */
+  #screen-quiz{display:none;}
+  .quiz-card{
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .quiz-question{
+    background:var(--bg-2);
+    display:flex;
+    align-items:center;
+    gap:1.4rem;
+    padding:1.9rem 1.9rem;
+  }
+  .quiz-number{
+    flex:none;
+    width:64px; height:64px;
+    border-radius:50%;
+    background:var(--panel-dark);
+    color:var(--ink);
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:700;
+    font-size:1.7rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .quiz-question p{
+    margin:0;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:600;
+    font-size:1.2rem;
+    line-height:1.3;
+  }
+  .quiz-answers{
+    background:var(--panel-dark);
+    padding:1.7rem 1.9rem 1.9rem;
+  }
+  .answers-label{
+    font-size:.85rem;
+    color:var(--ink-mute);
+    margin:0 0 1rem;
+  }
+  .option{
     display:flex;
     align-items:flex-start;
-    gap:.75rem;
-    padding:.85rem 0;
-    border-top:1px solid var(--line);
+    gap:.7rem;
+    padding:.6rem 0;
     cursor:pointer;
   }
-  .statement:first-of-type{border-top:none;}
-  .statement input{
+  .option input{
     appearance:none;
     -webkit-appearance:none;
-    width:22px; height:22px; flex:none;
-    margin-top:.1rem;
-    border-radius:6px;
-    border:1.8px solid var(--ink-soft);
-    background:var(--surface);
+    width:20px; height:20px; flex:none;
+    margin-top:.15rem;
+    border-radius:50%;
+    border:2px solid var(--ink-mute);
+    background:transparent;
     display:grid; place-items:center;
     cursor:pointer;
   }
-  .statement input:checked{background:var(--accent); border-color:var(--accent);}
-  .statement input:checked::after{
+  .option input::after{
     content:"";
-    width:11px;height:6px;
-    border-left:2.5px solid var(--surface);
-    border-bottom:2.5px solid var(--surface);
-    transform:rotate(-45deg) translate(1px,-1px);
+    width:10px; height:10px;
+    border-radius:50%;
+    background:var(--teal-pop);
+    transform:scale(0);
+    transition:transform .12s ease;
   }
-  .statement input:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
-  .statement p{margin:0; font-size:1rem;}
+  .option input:checked{border-color:var(--teal-pop);}
+  .option input:checked::after{transform:scale(1);}
+  .option input:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
+  .option p{margin:0; font-size:1rem; color:var(--ink);}
 
-  .quiz-nav{
+  .quiz-next{
+    margin-top:1.4rem;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    margin-top:1.5rem;
-    gap:.75rem;
-  }
-  button.ghost, button.solid{
-    font-family:'Archivo', system-ui, sans-serif;
+    justify-content:center;
+    gap:.5rem;
+    font-family:'Baloo 2', system-ui, sans-serif;
     font-weight:700;
-    font-size:.92rem;
+    font-size:1.05rem;
+    color:var(--ink);
+    background:var(--bg-2);
+    border:none;
     border-radius:11px;
-    padding:.7rem 1.15rem;
+    padding:.85rem 2.2rem;
     cursor:pointer;
-    border:1.5px solid transparent;
+    margin-left:auto;
+    margin-right:auto;
+    width:max-content;
+    box-shadow:0 5px 0 var(--bg-2-deep);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
   }
-  button.ghost{background:transparent; border-color:var(--line); color:var(--ink);}
-  button.ghost:hover{border-color:var(--ink-soft);}
-  button.ghost:disabled{opacity:.35; cursor:not-allowed;}
-  button.solid{background:var(--accent); color:var(--surface); border-color:var(--accent);}
-  button.solid:hover{background:var(--accent-strong); border-color:var(--accent-strong);}
-  button.ghost:focus-visible, button.solid:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
+  .quiz-next:disabled{opacity:.4; cursor:not-allowed;}
+  .quiz-next:not(:disabled):hover{transform:translateY(2px); box-shadow:0 3px 0 var(--bg-2-deep);}
+  .quiz-next:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
+
+  .quiz-back{
+    display:block;
+    margin:.9rem auto 0;
+    background:none;
+    border:none;
+    color:var(--ink-mute);
+    font-family:'Mulish', sans-serif;
+    font-size:.85rem;
+    cursor:pointer;
+    text-decoration:underline;
+  }
+  .quiz-back:disabled{visibility:hidden;}
+
+  .dots{
+    display:flex;
+    justify-content:center;
+    gap:.5rem;
+    margin-top:1.5rem;
+  }
+  .dot{
+    width:10px; height:10px;
+    border-radius:50%;
+    background:rgba(255,255,255,.25);
+  }
+  .dot.done{background:var(--ink-soft);}
+  .dot.active{background:var(--teal-pop); transform:scale(1.25);}
 
   /* ---- Results ---- */
   #screen-results{display:none;}
-  .result-hero{padding:2rem 1.9rem 1.7rem;}
-  .result-eyebrow{margin-bottom:.5rem;}
+  .stack{display:flex; flex-direction:column; gap:1.4rem;}
+  .result-hero{
+    background:var(--panel-dark-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:2.1rem 1.9rem;
+    text-align:center;
+  }
+  .result-eyebrow{
+    font-size:.85rem;
+    color:var(--teal-pop);
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin:0 0 .5rem;
+  }
+  .result-icon{
+    width:88px; height:88px;
+    margin:0 auto 1rem;
+    border-radius:50%;
+    background:var(--bg-2-deep);
+    border:3px solid var(--teal-pop);
+    display:flex; align-items:center; justify-content:center;
+  }
   .result-type{
-    font-family:'Archivo Black', system-ui, sans-serif;
-    font-size:clamp(1.7rem,5vw,2.3rem);
-    line-height:1.08;
+    font-size:clamp(1.7rem,5vw,2.2rem);
     margin:0 0 .7rem;
   }
-  .result-type em{color:var(--accent-strong); font-style:normal;}
-  .result-summary{color:var(--ink-soft); max-width:60ch; margin:0;}
+  .result-type em{color:var(--teal-pop); font-style:normal;}
+  .result-summary{
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 auto;
+  }
 
-  .chart-card{padding:1.7rem 1.9rem;}
-  .chart-title{font-size:1.05rem; margin:0 0 1.1rem;}
-  .bar-row{margin-bottom:1.05rem;}
+  .chart-card{
+    background:var(--panel-dark-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:1.8rem 1.9rem;
+  }
+  .chart-card h3{font-size:1.05rem; margin:0 0 1.15rem;}
+  .bar-row{margin-bottom:1.05rem; display:flex; align-items:center; gap:.8rem;}
   .bar-row:last-child{margin-bottom:0;}
+  .bar-icon{
+    width:34px; height:34px; flex:none;
+    border-radius:50%;
+    background:var(--bg-2-deep);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .bar-body{flex:1; min-width:0;}
   .bar-label{
-    display:flex; align-items:center; gap:.5rem;
-    font-family:'Archivo', system-ui, sans-serif;
+    display:flex; align-items:center;
+    font-family:'Baloo 2', system-ui, sans-serif;
     font-weight:600;
-    font-size:.86rem;
-    margin-bottom:.32rem;
+    font-size:.9rem;
+    margin-bottom:.3rem;
   }
   .bar-label .pct{
     margin-left:auto;
     font-family:'IBM Plex Mono', monospace;
     font-variant-numeric:tabular-nums;
-    font-weight:600;
-    color:var(--ink-soft);
+    font-size:.85rem;
+    color:var(--ink-mute);
   }
   .bar-track{
-    height:12px;
-    background:var(--surface-2);
-    border:1px solid var(--line);
+    height:11px;
+    background:var(--panel-dark);
     border-radius:8px;
     overflow:hidden;
   }
@@ -323,116 +342,104 @@
     height:100%;
     width:0%;
     border-radius:8px 4px 4px 8px;
-    background:linear-gradient(90deg, var(--accent-tint), var(--accent));
+    background:var(--teal-pop);
     transition:width .7s cubic-bezier(.2,.7,.3,1);
   }
-  .bar-row.core .bar-fill{background:linear-gradient(90deg, var(--accent-tint), var(--accent-strong));}
-  .bar-row.core.top .bar-label{color:var(--accent-strong);}
-  .divider-note{
-    font-family:'Archivo', system-ui, sans-serif;
-    font-size:.76rem;
-    color:var(--ink-soft);
-    margin:1.3rem 0 0;
-    padding-top:1rem;
-    border-top:1px dashed var(--line);
-  }
+  .bar-row.top .bar-fill{background:var(--accent-pink);}
+  .bar-row.top .bar-label{color:var(--accent-pink);}
 
-  .tips-card{padding:1.7rem 1.9rem;}
+  .tips-card{
+    background:var(--panel-dark-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:1.8rem 1.9rem;
+  }
   .tips-card h3{font-size:1.05rem; margin:0 0 .9rem;}
-  .tips-list{margin:0; padding-left:1.2rem;}
+  .tips-list{margin:0; padding-left:1.2rem; color:var(--ink-soft);}
   .tips-list li{margin-bottom:.55rem;}
   .tips-list li:last-child{margin-bottom:0;}
 
-  .restart-row{margin-top:1.6rem; display:flex; justify-content:center;}
+  .restart-row{display:flex; justify-content:center; margin-top:.2rem;}
+  button.ghost-restart{
+    font-family:'Mulish', sans-serif;
+    font-weight:700;
+    font-size:.9rem;
+    color:var(--ink-soft);
+    background:none;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:.7rem 1.3rem;
+    cursor:pointer;
+  }
+  button.ghost-restart:hover{border-color:var(--teal-pop); color:var(--ink);}
+  button.ghost-restart:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
 
   @media (prefers-reduced-motion: reduce){
-    .bar-fill, .mode-btn{transition:none;}
-  }
-
-  .stack{display:flex; flex-direction:column; gap:1.1rem;}
-  .visually-hidden{
-    position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;
+    .bar-fill, .quiz-next, button.cta{transition:none;}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="brand">
-    <div class="brand-mark">Lern<span>typen</span>test</div>
-    <div class="theme-note">Sofortauswertung &middot; ca. 5 Min.</div>
-  </div>
+  <div class="brand">Lern<span>typen</span>test</div>
 
   <!-- INTRO -->
   <section id="screen-intro">
-    <div class="card">
-      <p class="eyebrow">Wie lernst du am liebsten?</p>
-      <h1 class="intro-title">Was ist dein Lerntyp?</h1>
-      <p class="intro-lede">Du nimmst deine Umgebung über fünf Sinne wahr – und auch beim Lernen setzt du vor allem deine sehenden, hörenden und fühlenden Fähigkeiten ein. Dieser Fragebogen zeigt dir, welcher Kanal dir am meisten liegt.</p>
+    <div class="tag-banner">Viele schätzen sich falsch ein!</div>
 
-      <ul class="senses-list">
-        <li>${sense_icon:visuell} sehend (visuell)</li>
-        <li>${sense_icon:auditiv} hörend (auditiv)</li>
-        <li>${sense_icon:motorisch} fühlend (motorisch)</li>
-        <li>${sense_icon:olfaktorisch} riechend (olfaktorisch)</li>
-        <li>${sense_icon:gustatorisch} schmeckend (gustatorisch)</li>
-      </ul>
-
-      <p class="intro-lede" style="margin-bottom:1.1rem;">Setz überall dort ein Häkchen, wo eine Aussage zutrifft. Am Ende siehst du deine Auswertung sofort auf dieser Seite – nichts wird verschickt oder gespeichert.</p>
-
-      <div class="mode-row">
-        <button class="mode-btn primary" id="start-kind" type="button">
-          Für Kinder starten
-          <small>Der Test schätzt dich selbst ein – aus deiner Sicht.</small>
-        </button>
-        <button class="mode-btn" id="start-eltern" type="button">
-          Für Eltern starten
-          <small>Ihr schätzt den Lerntyp eures Kindes ein.</small>
-        </button>
-      </div>
-      <p class="fineprint">Testdauer ca. 5–10 Minuten &middot; 21 Aussagen in 5 Kategorien &middot; läuft komplett in diesem Browser.</p>
+    <div class="intro-copy">
+      <p>Mach den Lerntypentest und finde heraus, welcher Lerntyp du bist. Lernst du den Schulstoff entsprechend deines Typs, kannst du ihn dir noch schneller merken und bei Klassenarbeiten das Beste aus dir herausholen.</p>
+      <p>Du nimmst den Stoff über deine Sinnesorgane auf, die ihn an dein Gehirn weitergeben. Weil diese bei jedem Menschen unterschiedlich ausgeprägt sind, gibt es verschiedene Lerntypen. Am allerbesten ist es, wenn du beim Lernen mehrere Sinnesorgane einsetzt. Dann entsteht ein ganzes Netz aus gedanklichen Verknüpfungen. Cool, oder? Die nächste Klassenarbeit wird so bestimmt ein Klacks.</p>
     </div>
+
+    <div class="type-panel">
+      <h2>Welcher Lerntyp bist du?</h2>
+      <div class="type-grid" id="type-grid"></div>
+      <button class="cta" id="start-test" type="button">Jetzt Test machen</button>
+    </div>
+    <p class="fineprint">10 Fragen &middot; ca. 5 Minuten &middot; Auswertung erscheint sofort auf dieser Seite</p>
   </section>
 
   <!-- QUIZ -->
   <section id="screen-quiz">
-    <div class="rail" id="rail"></div>
-    <div class="card quiz-card">
-      <div class="quiz-kicker">
-        <span class="rail-dot" id="quiz-icon"></span>
-        <span class="eyebrow" id="quiz-step-label" style="margin:0;">Schritt 1 von 5</span>
+    <div class="quiz-card">
+      <div class="quiz-question">
+        <div class="quiz-number" id="quiz-number">1</div>
+        <p id="quiz-text"></p>
       </div>
-      <h2 class="quiz-title" id="quiz-title"></h2>
-      <div id="quiz-items"></div>
-      <div class="quiz-nav">
-        <button class="ghost" id="btn-back" type="button">← Zurück</button>
-        <button class="solid" id="btn-next" type="button">Weiter →</button>
+      <div class="quiz-answers">
+        <p class="answers-label">Markiere die zutreffende Antwort</p>
+        <div id="quiz-options"></div>
       </div>
     </div>
+    <button class="quiz-next" id="btn-next" type="button" disabled>weiter <span aria-hidden="true">›</span></button>
+    <button class="quiz-back" id="btn-back" type="button">‹ eine Frage zurück</button>
+    <div class="dots" id="dots"></div>
   </section>
 
   <!-- RESULTS -->
   <section id="screen-results">
     <div class="stack">
-      <div class="card result-hero">
-        <p class="eyebrow result-eyebrow">Deine Auswertung</p>
+      <div class="result-hero">
+        <p class="result-eyebrow">Deine Auswertung</p>
+        <div class="result-icon" id="result-icon"></div>
         <h2 class="result-type" id="result-type"></h2>
         <p class="result-summary" id="result-summary"></p>
       </div>
 
-      <div class="card chart-card">
-        <h3 class="chart-title">Deine Wahrnehmungskanäle im Überblick</h3>
+      <div class="chart-card">
+        <h3>Deine Lerntypen im Überblick</h3>
         <div id="bars"></div>
-        <p class="divider-note">Riechen und Schmecken spielen beim Lernen selbst nur eine Nebenrolle – entscheidend sind vor allem sehen, hören und fühlen. Die beiden Werte sind trotzdem interessant zu wissen.</p>
       </div>
 
-      <div class="card tips-card">
-        <h3 id="tips-title">Das hilft dir beim Lernen</h3>
+      <div class="tips-card">
+        <h3>Das hilft dir beim Lernen</h3>
         <ul class="tips-list" id="tips-list"></ul>
       </div>
 
       <div class="restart-row">
-        <button class="ghost" id="btn-restart" type="button">Test neu starten</button>
+        <button class="ghost-restart" id="btn-restart" type="button">Test neu starten</button>
       </div>
     </div>
   </section>
@@ -443,169 +450,227 @@
 (function(){
   "use strict";
 
-  // ---- Icons (simple, hand-drawn, minimal path data) ----
+  // ---- Icons ----
   const ICONS = {
-    visuell: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12C4.5 7 8 4.5 12 4.5S19.5 7 22 12c-2.5 5-6 7.5-10 7.5S4.5 17 2 12Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>',
-    auditiv: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.5 3.5C10 3.5 8 7.5 8 10.5c0 2 1 3 2 3.6 1 .6 1.5 1.4 1.5 2.6 0 2-1.6 3.3-3.6 3.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14.5 7c-2 0-3 2-3 3.7 0 1 .5 1.6 1.1 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-    motorisch: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.4" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="6.2" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="9.6" stroke="currentColor" stroke-width="1.6"/></svg>',
-    olfaktorisch: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 16c1.5 1 2.5 1 4 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4.5 12.5C6.5 13.7 8 13.7 10 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M3 9c2.7 1.6 4.6 1.6 7.3 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
-    gustatorisch: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3c3.5 4 6 8 6 11.5A6 6 0 0 1 6 14.5C6 11 8.5 7 12 3Z" stroke="currentColor" stroke-width="1.7"/></svg>'
+    checker: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M2 12C4.5 7 8 4.5 12 4.5S19.5 7 22 12c-2.5 5-6 7.5-10 7.5S4.5 17 2 12Z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3.1" fill="#fff"/></svg>',
+    macher: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="6" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="9.4" stroke="#fff" stroke-width="1.6"/></svg>',
+    lauscher: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M14.5 3.5C10 3.5 8 7.5 8 10.5c0 2 1 3 2 3.6 1 .6 1.5 1.4 1.5 2.6 0 2-1.6 3.3-3.6 3.1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M14.5 7c-2 0-3 2-3 3.7 0 1 .5 1.6 1.1 2" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    schnacker: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v10H9l-4 3.5v-3.5H4v-10Z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>'
   };
 
-  // ---- Content: statements per sense, phrased for both modes ----
-  const SENSES = [
-    {key:'visuell', label:'Sehend (visuell)'},
-    {key:'auditiv', label:'Hörend (auditiv)'},
-    {key:'motorisch', label:'Fühlend (motorisch)'},
-    {key:'olfaktorisch', label:'Riechend (olfaktorisch)'},
-    {key:'gustatorisch', label:'Schmeckend (gustatorisch)'}
-  ];
-
-  const ITEMS = [
-    {sense:'visuell', kind:'Ich kann mir Dinge besser merken, wenn ich sie sehe – zum Beispiel als Bild, Grafik oder Video.', eltern:'Mein Kind kann sich Dinge besser merken, wenn es sie sieht – zum Beispiel als Bild, Grafik oder Video.'},
-    {sense:'visuell', kind:'Beim Lernen mache ich mir gerne bunte Notizen, Skizzen oder Mindmaps.', eltern:'Beim Lernen macht sich mein Kind gerne bunte Notizen, Skizzen oder Mindmaps.'},
-    {sense:'visuell', kind:'Ich lese lieber selbst eine Anleitung, als sie mir erklären zu lassen.', eltern:'Mein Kind liest lieber selbst eine Anleitung, als sie sich erklären zu lassen.'},
-    {sense:'visuell', kind:'Wenn ich an etwas Gelerntes denke, sehe ich oft ein Bild davon vor meinem inneren Auge.', eltern:'Wenn mein Kind an etwas Gelerntes denkt, kann es oft ein Bild davon beschreiben.'},
-    {sense:'visuell', kind:'Ordnung, Farben und übersichtliche Tabellen helfen mir beim Lernen.', eltern:'Ordnung, Farben und übersichtliche Tabellen helfen meinem Kind beim Lernen.'},
-
-    {sense:'auditiv', kind:'Ich verstehe einen neuen Stoff besser, wenn er mir erklärt wird, statt ihn nur zu lesen.', eltern:'Mein Kind versteht einen neuen Stoff besser, wenn er ihm erklärt wird, statt ihn nur zu lesen.'},
-    {sense:'auditiv', kind:'Ich lerne gerne, indem ich mir den Stoff laut vorlese oder aufsage.', eltern:'Mein Kind lernt gerne, indem es sich den Stoff laut vorliest oder aufsagt.'},
-    {sense:'auditiv', kind:'Musik, Hörspiele oder Hörbücher helfen mir beim Lernen und Konzentrieren.', eltern:'Musik, Hörspiele oder Hörbücher helfen meinem Kind beim Lernen und Konzentrieren.'},
-    {sense:'auditiv', kind:'Ich merke mir gut, was jemand gesagt hat – auch ohne es aufzuschreiben.', eltern:'Mein Kind merkt sich gut, was jemand gesagt hat – auch ohne es aufzuschreiben.'},
-    {sense:'auditiv', kind:'Ich rede beim Lernen oft mit mir selbst oder erkläre den Stoff einer anderen Person.', eltern:'Mein Kind redet beim Lernen oft mit sich selbst oder erklärt den Stoff einer anderen Person.'},
-
-    {sense:'motorisch', kind:'Ich lerne am besten, wenn ich etwas selbst ausprobieren oder anfassen kann.', eltern:'Mein Kind lernt am besten, wenn es etwas selbst ausprobieren oder anfassen kann.'},
-    {sense:'motorisch', kind:'Ich kann beim Lernen nicht lange still sitzen, ich bewege mich lieber dabei.', eltern:'Mein Kind kann beim Lernen nicht lange still sitzen, es bewegt sich lieber dabei.'},
-    {sense:'motorisch', kind:'Praktische Übungen und Experimente machen mir mehr Spaß als reine Theorie.', eltern:'Praktische Übungen und Experimente machen meinem Kind mehr Spaß als reine Theorie.'},
-    {sense:'motorisch', kind:'Ich benutze beim Erzählen oder Erklären viel meine Hände und Gestik.', eltern:'Mein Kind benutzt beim Erzählen oder Erklären viel seine Hände und Gestik.'},
-    {sense:'motorisch', kind:'Bewegungsabläufe (z. B. beim Sport oder Tanzen) merke ich mir leichter als Texte.', eltern:'Bewegungsabläufe (z. B. beim Sport oder Tanzen) merkt sich mein Kind leichter als Texte.'},
-
-    {sense:'olfaktorisch', kind:'Bestimmte Gerüche erinnern mich stark an frühere Erlebnisse oder Lerninhalte.', eltern:'Bestimmte Gerüche erinnern mein Kind stark an frühere Erlebnisse oder Lerninhalte.'},
-    {sense:'olfaktorisch', kind:'Ich nehme Gerüche in meiner Umgebung besonders bewusst wahr.', eltern:'Mein Kind nimmt Gerüche in seiner Umgebung besonders bewusst wahr.'},
-    {sense:'olfaktorisch', kind:'Ein neuer Ort fühlt sich für mich erst „vertraut“ an, wenn ich weiß, wie er riecht.', eltern:'Ein neuer Ort fühlt sich für mein Kind erst „vertraut“ an, wenn es weiß, wie er riecht.'},
-
-    {sense:'gustatorisch', kind:'Ich verbinde bestimmte Geschmäcker mit besonderen Erinnerungen oder Situationen.', eltern:'Mein Kind verbindet bestimmte Geschmäcker mit besonderen Erinnerungen oder Situationen.'},
-    {sense:'gustatorisch', kind:'Ich probiere gerne neue Speisen und Geschmacksrichtungen aus.', eltern:'Mein Kind probiert gerne neue Speisen und Geschmacksrichtungen aus.'},
-    {sense:'gustatorisch', kind:'Beim Lernen belohne ich mich gerne mit einem kleinen Snack oder etwas zu trinken.', eltern:'Beim Lernen belohnt sich mein Kind gerne mit einem kleinen Snack oder etwas zu trinken.'}
-  ].map((it, i) => Object.assign({id:'q'+i}, it));
-
-  const TYPE_INFO = {
-    visuell:{
-      name:'visuelle Typ', article:'Der', name_em:'Visuell',
-      desc_kind:'Du nimmst Lerninhalte am leichtesten über die Augen auf.',
-      desc_eltern:'Ihr Kind nimmt Lerninhalte am leichtesten über die Augen auf.',
+  const TYPES = {
+    checker:{
+      name:'Checker', name_key:'visuell',
+      short:'Du verlässt dich auf das, was du siehst. Bilder, Diagramme, Videos – das ist deine Welt. Du bist der visuelle Lerntyp.',
       tips:[
         'Nutze Mindmaps, Farben und Karteikarten mit Bildern oder Symbolen.',
         'Schau dir Erklärvideos, Diagramme oder Schaubilder zum Thema an.',
         'Schreib dir Zusammenfassungen mit Unterstreichungen und Markierungen.'
       ]
     },
-    auditiv:{
-      name:'auditive Typ', article:'Der', name_em:'Auditiv',
-      desc_kind:'Du nimmst Lerninhalte am leichtesten über die Ohren auf.',
-      desc_eltern:'Ihr Kind nimmt Lerninhalte am leichtesten über die Ohren auf.',
-      tips:[
-        'Lies den Stoff laut vor oder sprich ihn dir als Sprachnotiz auf.',
-        'Erkläre das Gelernte einer anderen Person oder dir selbst.',
-        'Nutze Hörbücher, Podcasts oder Gespräche zum Thema.'
-      ]
-    },
-    motorisch:{
-      name:'motorische Typ', article:'Der', name_em:'Motorisch',
-      desc_kind:'Du nimmst Lerninhalte am leichtesten über Bewegung und Anfassen auf.',
-      desc_eltern:'Ihr Kind nimmt Lerninhalte am leichtesten über Bewegung und Anfassen auf.',
+    macher:{
+      name:'Macher', name_key:'motorisch',
+      short:'Learning by doing ist dein Motto und das heißt: einfach ausprobieren! Du bist der motorische Lerntyp.',
       tips:[
         'Lerne im Gehen, im Stehen oder mit kurzen Bewegungspausen.',
         'Baue Modelle, mach Experimente oder schreib von Hand statt nur zu lesen.',
         'Verbinde Lerninhalte mit Rollenspielen oder realen Handlungen.'
       ]
+    },
+    lauscher:{
+      name:'Lauscher', name_key:'auditiv',
+      short:'Du kannst dir Sachen am besten merken, wenn du zuhörst und dir Dinge erklären lässt. Du bist der auditive Lerntyp.',
+      tips:[
+        'Lies den Stoff laut vor oder sprich ihn dir als Sprachnotiz auf.',
+        'Lass dir Zusammenhänge erklären oder erklär sie selbst laut jemandem.',
+        'Nutze Hörbücher, Podcasts oder Gespräche zum Thema.'
+      ]
+    },
+    schnacker:{
+      name:'Schnacker', name_key:'kommunikativ',
+      short:'Du bist die Quasselstrippe vom Dienst. Du hast viele Freunde, denen deine Meinung wichtig ist. Du bist der kommunikative Lerntyp.',
+      tips:[
+        'Lern in einer Gruppe und fragt euch gegenseitig ab.',
+        'Erklär den Stoff einer anderen Person – am besten laut und im Gespräch.',
+        'Diskutiere neue Themen mit Freunden oder deiner Familie.'
+      ]
     }
   };
 
-  const CORE = ['visuell','auditiv','motorisch'];
+  const TYPE_ORDER = ['checker','macher','lauscher','schnacker'];
+
+  // ---- Questions ----
+  // Q1, Q2, Q3, Q4: 1:1 übernommen. Q5–Q10: neu ergänzt im selben Stil,
+  // damit der Test alle vier Typen ausgewogen abfragt.
+  const QUESTIONS = [
+    {
+      type:'likert', target:'checker',
+      text:'Egal ob eine Vokabeltabelle in Englisch, eine Grafik in Deutsch oder ein Diagramm in Mathe … Du kannst dir diese Dinge gut merken und anschließend selbst aufzeichnen.',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, manchmal.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    },
+    {
+      type:'forced',
+      text:'Du möchtest ein YouTube Video drehen und hochladen, weißt aber nicht wie. Was machst du?',
+      options:[
+        {label:'Du suchst ein Tutorial auf YouTube, um zu sehen, wie es geht.', mapsTo:'lauscher'},
+        {label:'Du liest es auf einer Internetseite nach.', mapsTo:'checker'},
+        {label:'Du versuchst es einfach und probierst drauf los.', mapsTo:'macher'},
+        {label:'Du fragst deinen Kumpel oder deine BFF, ob sie das schon mal gemacht haben.', mapsTo:'schnacker'}
+      ]
+    },
+    {
+      type:'likert', target:'schnacker',
+      text:'Du unterhältst dich in der Pause immer gerne mit anderen darüber, was abgeht.',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, manchmal.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    },
+    {
+      type:'likert', target:'checker',
+      text:'Dein Lehrer kaut morgens beim konzentrierten Denken auf einem Filzstift herum und malt sich selbst an. Kannst du dich am Abend noch erinnern, mit welcher Farbe der Lehrer seinen Mund angemalt hat?',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, glaube schon.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    },
+    {
+      type:'likert', target:'lauscher',
+      text:'Wenn deine Lehrerin etwas erklärt, merkst du dir das oft schon beim einfachen Zuhören – auch ohne mitzuschreiben.',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, meistens.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    },
+    {
+      type:'likert', target:'macher',
+      text:'Beim Lernen für eine Arbeit läufst du am liebsten in deinem Zimmer auf und ab oder wippst mit dem Fuß, statt still am Schreibtisch zu sitzen.',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, manchmal.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    },
+    {
+      type:'forced',
+      text:'In Erdkunde sollt ihr die Hauptstädte von zehn Ländern lernen. Wie gehst du das an?',
+      options:[
+        {label:'Du schaust dir eine Landkarte an und prägst dir die Städte bildlich ein.', mapsTo:'checker'},
+        {label:'Du sprichst dir die Hauptstädte laut vor oder lässt sie dir abfragen.', mapsTo:'lauscher'},
+        {label:'Du schreibst die Hauptstädte immer wieder von Hand auf, bis sie sitzen.', mapsTo:'macher'},
+        {label:'Du lernst mit einer Freundin oder einem Freund zusammen und fragt euch gegenseitig ab.', mapsTo:'schnacker'}
+      ]
+    },
+    {
+      type:'likert', target:'schnacker',
+      text:'Bevor du eine wichtige Entscheidung triffst, redest du erstmal mit Freunden oder deiner Familie darüber.',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, oft.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    },
+    {
+      type:'likert', target:'lauscher',
+      text:'Podcasts, Hörspiele oder Musik laufen bei dir häufig nebenbei – und du merkst dir davon erstaunlich viel.',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, manchmal.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    },
+    {
+      type:'likert', target:'macher',
+      text:'Neue Dinge verstehst du am besten, wenn du sie direkt selbst ausprobieren kannst, statt nur zuzuschauen oder zuzuhören.',
+      options:[
+        {label:'Ja, auf jeden Fall.', points:2},
+        {label:'Ja, meistens.', points:1},
+        {label:'Nein, auf keinen Fall.', points:0}
+      ]
+    }
+  ];
+
+  const MAX_PER_TYPE = 6; // 2 Likert-Fragen à 2 Punkte + 2 Forced-Choice-Chancen à 1 Punkt
 
   // ---- State ----
-  let mode = 'kind'; // 'kind' | 'eltern'
-  let step = 0; // index into SENSES (quiz step)
-  const answers = new Set();
+  let step = 0;
+  const chosen = new Array(QUESTIONS.length).fill(null); // index of chosen option per question
 
   const $ = (sel) => document.querySelector(sel);
   const screenIntro = $('#screen-intro');
   const screenQuiz = $('#screen-quiz');
   const screenResults = $('#screen-results');
 
-  function itemsForSense(senseKey){
-    return ITEMS.filter(it => it.sense === senseKey);
+  function renderTypeGrid(){
+    const grid = $('#type-grid');
+    grid.innerHTML = TYPE_ORDER.map(key => {
+      const t = TYPES[key];
+      return '<div class="type-item">' +
+        '<div class="type-icon">' + ICONS[key] + '</div>' +
+        '<h3>Der ' + t.name + '</h3>' +
+        '<p>' + t.short + '</p>' +
+        '</div>';
+    }).join('');
   }
+  renderTypeGrid();
 
-  function renderIntroIcons(){
-    document.querySelectorAll('#screen-intro .senses-list li').forEach(li => {
-      const key = li.textContent.trim();
-    });
-    // inject icons into placeholders
-    document.querySelectorAll('.senses-list li').forEach((li) => {
-      const text = li.innerHTML;
-      const m = text.match(/\$\{sense_icon:(\w+)\}/);
-      if (m) li.innerHTML = ICONS[m[1]] + ' ' + text.replace(m[0], '').trim();
-    });
-  }
-  renderIntroIcons();
-
-  function buildRail(){
-    const rail = $('#rail');
-    rail.innerHTML = '';
-    SENSES.forEach((s, i) => {
-      const stepEl = document.createElement('div');
-      stepEl.className = 'rail-step' + (i < step ? ' done' : '') + (i === step ? ' active' : '');
-      stepEl.innerHTML = '<div class="rail-dot">' + ICONS[s.key] + '</div><div class="rail-label">' + s.label.split(' ')[0] + '</div>';
-      rail.appendChild(stepEl);
-    });
+  function renderDots(){
+    const dots = $('#dots');
+    dots.innerHTML = QUESTIONS.map((_, i) => {
+      let cls = 'dot';
+      if (i < step) cls += ' done';
+      if (i === step) cls += ' active';
+      return '<span class="' + cls + '"></span>';
+    }).join('');
   }
 
   function renderQuizStep(){
-    buildRail();
-    const sense = SENSES[step];
-    $('#quiz-icon').innerHTML = ICONS[sense.key];
-    $('#quiz-step-label').textContent = 'Schritt ' + (step+1) + ' von ' + SENSES.length;
-    $('#quiz-title').textContent = sense.label;
+    const q = QUESTIONS[step];
+    $('#quiz-number').textContent = step + 1;
+    $('#quiz-text').textContent = q.text;
 
-    const container = $('#quiz-items');
-    container.innerHTML = '';
-    itemsForSense(sense.key).forEach(item => {
+    const optionsEl = $('#quiz-options');
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
       const row = document.createElement('label');
-      row.className = 'statement';
-      row.setAttribute('for', item.id);
-      const checked = answers.has(item.id);
-      row.innerHTML = '<input type="checkbox" id="' + item.id + '"' + (checked ? ' checked' : '') + '><p>' + (mode === 'kind' ? item.kind : item.eltern) + '</p>';
-      container.appendChild(row);
-      row.querySelector('input').addEventListener('change', (e) => {
-        if (e.target.checked) answers.add(item.id); else answers.delete(item.id);
+      row.className = 'option';
+      const checked = chosen[step] === i;
+      row.innerHTML = '<input type="radio" name="q' + step + '" value="' + i + '"' + (checked ? ' checked' : '') + '><p>' + opt.label + '</p>';
+      row.querySelector('input').addEventListener('change', () => {
+        chosen[step] = i;
+        $('#btn-next').disabled = false;
       });
+      optionsEl.appendChild(row);
     });
 
+    $('#btn-next').disabled = chosen[step] === null;
+    $('#btn-next').innerHTML = (step === QUESTIONS.length - 1 ? 'Auswertung anzeigen' : 'weiter') + ' <span aria-hidden="true">›</span>';
     $('#btn-back').disabled = step === 0;
-    $('#btn-next').textContent = step === SENSES.length - 1 ? 'Auswertung anzeigen →' : 'Weiter →';
+    renderDots();
   }
 
-  function goToQuiz(selectedMode){
-    mode = selectedMode;
-    step = 0;
+  $('#start-test').addEventListener('click', () => {
     screenIntro.style.display = 'none';
-    screenResults.style.display = 'none';
     screenQuiz.style.display = 'block';
+    step = 0;
     renderQuizStep();
-    window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
-  }
-
-  $('#start-kind').addEventListener('click', () => goToQuiz('kind'));
-  $('#start-eltern').addEventListener('click', () => goToQuiz('eltern'));
+    window.scrollTo({top:0, behavior:'auto'});
+  });
 
   $('#btn-back').addEventListener('click', () => {
     if (step > 0){ step -= 1; renderQuizStep(); }
   });
 
   $('#btn-next').addEventListener('click', () => {
-    if (step < SENSES.length - 1){
+    if (chosen[step] === null) return;
+    if (step < QUESTIONS.length - 1){
       step += 1;
       renderQuizStep();
     } else {
@@ -614,66 +679,77 @@
   });
 
   $('#btn-restart').addEventListener('click', () => {
-    answers.clear();
+    chosen.fill(null);
     step = 0;
     screenResults.style.display = 'none';
     screenIntro.style.display = 'block';
     window.scrollTo({top:0, behavior:'auto'});
   });
 
-  function percentFor(senseKey){
-    const items = itemsForSense(senseKey);
-    const checked = items.filter(it => answers.has(it.id)).length;
-    return Math.round((checked / items.length) * 100);
+  function computeScores(){
+    const scores = {checker:0, macher:0, lauscher:0, schnacker:0};
+    QUESTIONS.forEach((q, i) => {
+      const answerIndex = chosen[i];
+      if (answerIndex === null) return;
+      const opt = q.options[answerIndex];
+      if (q.type === 'likert'){
+        scores[q.target] += opt.points;
+      } else {
+        scores[opt.mapsTo] += 1;
+      }
+    });
+    return scores;
   }
 
-  function determineType(scores){
-    const max = Math.max(...CORE.map(k => scores[k]));
-    const top = CORE.filter(k => max - scores[k] <= 15 && max > 0);
-    if (top.length === 0) return null; // nothing checked in core categories
-    return top;
+  function determineTop(scores){
+    const max = Math.max(...TYPE_ORDER.map(k => scores[k]));
+    if (max === 0) return [];
+    return TYPE_ORDER.filter(k => max - scores[k] <= 1);
   }
 
   function showResults(){
-    const scores = {};
-    SENSES.forEach(s => scores[s.key] = percentFor(s.key));
+    const scores = computeScores();
+    const top = determineTop(scores);
 
-    const top = determineType(scores);
-    const possessive = mode === 'kind' ? 'Dein' : 'Der';
-    const subject = mode === 'kind' ? 'du' : 'Ihr Kind';
-
-    let typeHeadline, summary, tips;
-    if (!top){
-      typeHeadline = mode === 'kind' ? 'Noch unklar' : 'Noch unklar';
-      summary = 'Es wurde keine der drei Hauptaussagen angekreuzt. Mach den Test noch einmal und kreuze an, was zutrifft.';
-      tips = ['Beantworte die Aussagen zu sehen, hören und fühlen möglichst ehrlich.'];
+    let headline, summary, tips, iconKey;
+    if (top.length === 0){
+      headline = 'Noch unklar';
+      summary = 'Es wurden noch keine eindeutigen Antworten gewertet. Mach den Test noch einmal und wähle bei jeder Frage die Antwort, die am besten zu dir passt.';
+      tips = ['Beantworte jede Frage möglichst spontan und ehrlich.'];
+      iconKey = null;
     } else if (top.length === 1){
-      const info = TYPE_INFO[top[0]];
-      typeHeadline = (mode === 'kind' ? 'Dein Lerntyp: ' : 'Lerntyp des Kindes: ') + '<em>' + info.name_em + '</em>';
-      summary = mode === 'kind' ? info.desc_kind : info.desc_eltern;
-      tips = info.tips;
+      const t = TYPES[top[0]];
+      iconKey = top[0];
+      headline = 'Du bist der <em>' + t.name + '</em>';
+      summary = t.short;
+      tips = t.tips;
     } else {
-      const names = top.map(k => TYPE_INFO[k].name_em).join('-');
-      typeHeadline = (mode === 'kind' ? 'Dein Lerntyp: ' : 'Lerntyp des Kindes: ') + '<em>' + names + '-Mischtyp</em>';
-      summary = (mode === 'kind' ? 'Du lernst' : 'Ihr Kind lernt') + ' über mehrere Kanäle etwa gleich gut – kombiniere die passenden Strategien.';
-      tips = top.flatMap(k => TYPE_INFO[k].tips).slice(0,5);
+      const names = top.map(k => TYPES[k].name).join('-');
+      iconKey = top[0];
+      headline = 'Du bist ein <em>' + names + '</em>-Mischtyp';
+      summary = 'Du lernst über mehrere Kanäle etwa gleich gut – kombiniere die passenden Strategien.';
+      tips = top.flatMap(k => TYPES[k].tips).slice(0,5);
     }
 
-    $('#result-type').innerHTML = typeHeadline;
+    $('#result-type').innerHTML = headline;
     $('#result-summary').textContent = summary;
-    $('#tips-title').textContent = mode === 'kind' ? 'Das hilft dir beim Lernen' : 'Das hilft Ihrem Kind beim Lernen';
+    $('#result-icon').innerHTML = iconKey ? ICONS[iconKey] : '';
     $('#tips-list').innerHTML = tips.map(t => '<li>' + t + '</li>').join('');
 
     const barsContainer = $('#bars');
     barsContainer.innerHTML = '';
-    SENSES.forEach(s => {
-      const isCore = CORE.includes(s.key);
-      const isTop = top && top.includes(s.key);
+    TYPE_ORDER.forEach(key => {
+      const t = TYPES[key];
+      const pct = Math.round((scores[key] / MAX_PER_TYPE) * 100);
+      const isTop = top.includes(key);
       const row = document.createElement('div');
-      row.className = 'bar-row' + (isCore ? ' core' : '') + (isTop ? ' top' : '');
+      row.className = 'bar-row' + (isTop ? ' top' : '');
       row.innerHTML =
-        '<div class="bar-label">' + ICONS[s.key] + ' ' + s.label + '<span class="pct">' + scores[s.key] + '%</span></div>' +
-        '<div class="bar-track"><div class="bar-fill" data-pct="' + scores[s.key] + '"></div></div>';
+        '<div class="bar-icon">' + ICONS[key] + '</div>' +
+        '<div class="bar-body">' +
+          '<div class="bar-label">Der ' + t.name + '<span class="pct">' + pct + '%</span></div>' +
+          '<div class="bar-track"><div class="bar-fill" data-pct="' + pct + '"></div></div>' +
+        '</div>';
       barsContainer.appendChild(row);
     });
 
