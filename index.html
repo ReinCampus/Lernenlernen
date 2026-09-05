@@ -20,6 +20,8 @@
     --ink-mute:#8fb8b6;
     --accent-pink:#ee1d78;
     --accent-pink-strong:#c8135f;
+    --accent-orange:#e6905f;
+    --accent-orange-strong:#c26f3f;
     --teal-pop:#1fc9bf;
     --line:rgba(255,255,255,.14);
     --focus:#1fc9bf;
@@ -151,16 +153,16 @@
     font-weight:700;
     font-size:1.15rem;
     color:var(--ink);
-    background:var(--accent-pink);
+    background:var(--accent-orange);
     border:none;
     border-radius:12px;
     padding:1.05rem 1.5rem;
     cursor:pointer;
-    box-shadow:0 6px 0 var(--accent-pink-strong);
+    box-shadow:0 6px 0 var(--accent-orange-strong);
     transition:transform .12s ease, box-shadow .12s ease;
   }
-  button.cta:hover{transform:translateY(2px); box-shadow:0 4px 0 var(--accent-pink-strong);}
-  button.cta:active{transform:translateY(6px); box-shadow:0 0 0 var(--accent-pink-strong);}
+  button.cta:hover{transform:translateY(2px); box-shadow:0 4px 0 var(--accent-orange-strong);}
+  button.cta:active{transform:translateY(6px); box-shadow:0 0 0 var(--accent-orange-strong);}
   button.cta:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
 
   .fineprint{
@@ -252,7 +254,7 @@
     font-weight:700;
     font-size:1.05rem;
     color:var(--ink);
-    background:var(--bg-2);
+    background:var(--accent-orange);
     border:none;
     border-radius:11px;
     padding:.85rem 2.2rem;
@@ -260,11 +262,11 @@
     margin-left:auto;
     margin-right:auto;
     width:max-content;
-    box-shadow:0 5px 0 var(--bg-2-deep);
+    box-shadow:0 5px 0 var(--accent-orange-strong);
     transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
   }
   .quiz-next:disabled{opacity:.4; cursor:not-allowed;}
-  .quiz-next:not(:disabled):hover{transform:translateY(2px); box-shadow:0 3px 0 var(--bg-2-deep);}
+  .quiz-next:not(:disabled):hover{transform:translateY(2px); box-shadow:0 3px 0 var(--accent-orange-strong);}
   .quiz-next:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
 
   .quiz-back{
@@ -425,7 +427,7 @@
     padding:.7rem 1.3rem;
     cursor:pointer;
   }
-  button.ghost-restart:hover{border-color:var(--teal-pop); color:var(--ink);}
+  button.ghost-restart:hover{border-color:var(--accent-orange); color:var(--ink);}
   button.ghost-restart:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
 
   @media (prefers-reduced-motion: reduce){
