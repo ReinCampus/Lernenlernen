@@ -22,6 +22,7 @@
     --accent-pink-strong:#c8135f;
     --accent-orange:#e6905f;
     --accent-orange-strong:#c26f3f;
+    --rc-green:#38b2af;
     --teal-pop:#1fc9bf;
     --line:rgba(255,255,255,.14);
     --focus:#1fc9bf;
@@ -47,12 +48,21 @@
     text-wrap:balance;
   }
 
+  .brand-header{margin-bottom:1.6rem;}
+  .rc-wordmark{
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:800;
+    font-size:.95rem;
+    letter-spacing:.06em;
+    margin-bottom:.4rem;
+  }
+  .rc-wordmark .rc-rein{color:var(--accent-orange);}
+  .rc-wordmark .rc-campus{color:var(--rc-green);}
   .brand{
     font-family:'Baloo 2', system-ui, sans-serif;
     font-weight:700;
     font-size:1rem;
     color:var(--ink-soft);
-    margin-bottom:1.6rem;
     letter-spacing:.01em;
   }
   .brand span{color:var(--teal-pop);}
@@ -438,7 +448,10 @@
 <body>
 <div class="wrap">
 
-  <div class="brand">Lern<span>typen</span>test</div>
+  <div class="brand-header">
+    <div class="rc-wordmark"><span class="rc-rein">REIN</span> <span class="rc-campus">CAMPUS</span></div>
+    <div class="brand">Lern<span>typen</span>test</div>
+  </div>
 
   <!-- INTRO -->
   <section id="screen-intro">
