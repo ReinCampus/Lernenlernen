@@ -312,44 +312,56 @@
     margin:0 0 .5rem;
   }
   .result-title{
-    font-size:clamp(1.5rem,4.5vw,2rem);
-    margin:0 0 1.4rem;
+    font-size:clamp(1.5rem,4.5vw,1.9rem);
+    margin:0 0 .3rem;
   }
   .result-title em{color:var(--teal-pop); font-style:normal;}
-  .result-row{
+  .result-name-row{
     display:flex;
-    align-items:flex-start;
-    gap:1.6rem;
-    margin-bottom:1.7rem;
+    align-items:center;
+    gap:1.2rem;
+    margin-bottom:1.5rem;
   }
-  @media (max-width:560px){ .result-row{flex-direction:column; align-items:center; text-align:center;} }
+  @media (max-width:480px){ .result-name-row{flex-direction:column; align-items:flex-start; gap:.8rem;} }
   .result-icon{
     flex:none;
-    width:104px; height:104px;
+    width:76px; height:76px;
     border-radius:50%;
     background:var(--bg-2-deep);
     border:3px solid var(--teal-pop);
     display:flex; align-items:center; justify-content:center;
   }
-  .result-summary{
-    color:var(--ink-soft);
+  .result-tagline{
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--teal-pop);
     margin:0;
-    flex:1;
-    min-width:0;
   }
+  .result-desc{color:var(--ink-soft); margin:0 0 1.6rem;}
+  .result-desc p{margin:0 0 1rem;}
+  .result-desc p:last-child{margin-bottom:0;}
   .result-tips-heading{
     font-family:'Baloo 2', system-ui, sans-serif;
     font-weight:700;
     font-size:1.05rem;
     margin:0 0 .9rem;
   }
-  .result-closing{
+  .tips-list li strong{color:var(--ink);}
+  .result-important{
+    color:var(--ink-soft);
+    margin:0 0 1.5rem;
+  }
+  .result-important p{margin:0 0 .8rem;}
+  .result-important p:last-child{margin-bottom:0;}
+  .result-strength{
     color:var(--ink-mute);
     font-size:.9rem;
-    margin:1.3rem 0 0;
-    padding-top:1rem;
+    margin:0;
+    padding-top:1.2rem;
     border-top:1px dashed var(--line);
   }
+  .result-strength strong{color:var(--ink);}
 
   .chart-card{
     background:var(--panel-dark-2);
@@ -469,14 +481,7 @@
     <div class="stack">
       <div class="result-hero">
         <p class="result-eyebrow">Deine Auswertung</p>
-        <h2 class="result-title" id="result-type"></h2>
-        <div class="result-row">
-          <div class="result-icon" id="result-icon"></div>
-          <p class="result-summary" id="result-summary"></p>
-        </div>
-        <h3 class="result-tips-heading" id="tips-heading"></h3>
-        <ul class="tips-list" id="tips-list"></ul>
-        <p class="result-closing" id="result-closing"></p>
+        <div id="result-body"></div>
       </div>
 
       <div class="chart-card">
@@ -504,67 +509,108 @@
     schnacker: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v10H9l-4 3.5v-3.5H4v-10Z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>'
   };
 
-  const RESULT_CLOSING = 'Jetzt kennst du deinen Lerntyp, mit dem du deine Stärken am besten nutzen kannst. Pssst … verwende auch die anderen Kanäle. Die meisten Leute sind eine Kombi aus verschiedenen Lerntypen!';
-
   const TYPES = {
     checker:{
       name:'Checker', name_key:'visuell',
       short:'Du verstehst Dinge besonders gut, wenn du sie sehen kannst. Bilder, Skizzen, Farben, Mindmaps oder Videos helfen dir dabei, Zusammenhänge zu erkennen und dir Wissen zu merken.',
       strength:'Sehen &amp; Verstehen',
-      title:'Du bist der visuelle Lerntyp',
-      desc:'Du verlässt dich auf das, was du siehst. Bilder, Diagramme, Videos – das ist deine Welt. Dein Gehirn verarbeitet und speichert diese Art von Informationen am besten. Schau dir den Lernstoff möglichst oft in Grafiken, Bildern oder kurzen Erklärvideos an – dann bleibt er viel besser hängen.',
-      tipsHeading:'Du brauchst noch mehr Tipps? Kein Problem:',
+      tagline:'Lernen durch Sehen liegt dir besonders.',
+      paragraphs:[
+        'Du verstehst Dinge besonders gut, wenn du sie vor dir sehen kannst. Bilder, Skizzen, Grafiken, Farben oder Videos helfen dir dabei, Zusammenhänge zu erkennen und neue Informationen zu ordnen.',
+        'Mach dir den Lernstoff deshalb sichtbar. Statt eine Seite immer wieder nur zu lesen, kannst du wichtige Informationen markieren, Zusammenhänge aufzeichnen oder aus einem komplizierten Thema eine übersichtliche Skizze machen.'
+      ],
+      tipsHeading:'Das kannst du beim Lernen ausprobieren:',
       tips:[
-        'Markiere wichtige Textstellen oder skizziere das Gelernte.',
-        'Verwende bei deinen Aufzeichnungen unterschiedliche Farben.',
-        'Nutze Symbole, zum Beispiel in einem Karteikarten-System.',
-        'Kennst du Mindmaps? Lernen mit Gedanken-Landkarten könnte dir ebenfalls helfen.',
-        'Denk dir Bilder zu den Lerninhalten aus – je verrückter, desto besser kannst du sie dir merken.',
-        'Ein aufgeräumter Schreibtisch hilft visuellen Lerntypen. Also schnell noch alles sortieren, dann durchstarten!'
-      ]
+        {lead:'Markiere Wichtiges:', text:'Hebe Schlüsselbegriffe und zentrale Informationen hervor. Aber Vorsicht: Wenn am Ende alles bunt ist, hilft dir das nicht weiter. Weniger ist mehr!'},
+        {lead:'Arbeite mit Farben:', text:'Gib bestimmten Farben eine Bedeutung. Zum Beispiel eine Farbe für wichtige Begriffe und eine andere für Beispiele oder Formeln.'},
+        {lead:'Nutze Symbole:', text:'Kleine Zeichen und Symbole auf Karteikarten oder in deinen Notizen können dir helfen, Informationen schneller zu erkennen und zuzuordnen.'},
+        {lead:'Erstelle Mindmaps:', text:'Ordne ein Thema rund um einen zentralen Begriff an und verbinde die einzelnen Informationen miteinander. So kannst du Zusammenhänge auf einen Blick erkennen.'},
+        {lead:'Mach aus Wissen Bilder:', text:'Denk dir zu schwierigen Begriffen oder Fakten ein passendes Bild aus. Je ungewöhnlicher oder lustiger die Vorstellung ist, desto leichter kann sie im Gedächtnis bleiben.'},
+        {lead:'Zeichne Zusammenhänge:', text:'Pfeile, Kästen, kleine Skizzen oder einfache Schaubilder können aus einer langen Textseite eine verständliche Übersicht machen.'},
+        {lead:'Sorge für Übersicht:', text:'Ein aufgeräumter Arbeitsplatz kann dabei helfen, unnötige Ablenkungen aus deinem Blickfeld zu entfernen. Auf den Tisch kommt am besten nur das, was du gerade zum Lernen brauchst.'}
+      ],
+      importantHeading:'Wichtig zu wissen',
+      importantParagraphs:[
+        'Auch wenn dir Lernen durch Sehen besonders liegt, solltest du nicht ausschließlich auf Bilder, Farben und Grafiken setzen.',
+        'Kombiniere verschiedene Lernwege: anschauen, zuhören, erklären, aufschreiben und selbst ausprobieren.',
+        'Je aktiver du dich mit einem Lernstoff beschäftigst und je mehr sinnvolle Verbindungen du zu deinem vorhandenen Wissen herstellst, desto leichter kannst du ihn später wieder abrufen.'
+      ],
+      resultStrength:'Sehen &amp; Strukturieren'
     },
     macher:{
       name:'Macher', name_key:'motorisch',
       short:'Nur anschauen? Dir reicht das nicht. Du willst Dinge ausprobieren und selbst machen. Übungen, Experimente und praktische Aufgaben helfen dir, neue Inhalte wirklich zu verstehen.',
       strength:'Ausprobieren &amp; Anwenden',
-      title:'Du bist der motorische Lerntyp',
-      desc:'Learning by doing ist dein Motto und das heißt: einfach ausprobieren! Du zögerst nicht lange, sondern legst sofort los. Im Unterricht blühst du auf, wenn du experimentieren und aktiv sein kannst. Deine Mitschüler müssen sich in Acht nehmen, denn du redest mit Händen und Füßen.',
-      tipsHeading:'Hier noch weitere Tipps für dich:',
+      tagline:'Lernen durch Ausprobieren liegt dir besonders.',
+      paragraphs:[
+        'Learning by doing passt zu dir: Du verstehst Dinge besonders gut, wenn du selbst aktiv wirst, etwas ausprobierst und Wissen direkt anwendest.',
+        'Nur dasitzen und zuhören? Das kann für dich schnell anstrengend werden. Viel leichter fällt dir das Lernen, wenn Bewegung ins Spiel kommt oder du selbst etwas tun kannst. Experimente, praktische Übungen, Modelle oder kleine Aktionen helfen dir dabei, neue Inhalte zu verstehen und im Gedächtnis zu verankern.'
+      ],
+      tipsHeading:'Das kannst du beim Lernen ausprobieren:',
       tips:[
-        'Nutze deinen Bewegungsdrang: Geh beim Auswendiglernen von einer Zimmerecke in die andere – jeder Schritt kann für ein Wort oder eine Strophe stehen.',
-        'Stell den Lernstoff szenisch dar oder unterstütze ihn mit Gesten.',
-        'Leg dich beim Lernen in die Hängematte – durch die Bewegung prägst du dir den Stoff besser ein. Aber nicht einschlafen! ;-)',
-        'Bau Modelle oder mach kleine Experimente zum Thema, wo immer das geht.'
-      ]
+        {lead:'Lernen in Bewegung:', text:'Lauf beim Auswendiglernen durch dein Zimmer. Verbinde bestimmte Stellen oder Bewegungen mit einzelnen Begriffen oder Lerninhalten.'},
+        {lead:'Mach Wissen sichtbar:', text:'Stelle Abläufe mit Gegenständen nach, baue ein Modell oder nutze deine Hände, um dir Zusammenhänge klarzumachen.'},
+        {lead:'Gesten als Gedächtnisstütze:', text:'Verbinde wichtige Begriffe mit einer bestimmten Bewegung. Die Bewegung kann dir später helfen, dich wieder an den Inhalt zu erinnern.'},
+        {lead:'Vom Wissen ins Tun:', text:'Rechne Aufgaben, führe kleine Experimente durch oder probiere eine Methode direkt aus. Für dich gilt besonders: Nicht nur anschauen – anwenden!'},
+        {lead:'Bewegte Lernpausen:', text:'Nutze kurze Pausen, um aufzustehen, dich zu bewegen oder ein paar Schritte zu gehen. Danach kann dein Kopf wieder konzentrierter weiterarbeiten.'}
+      ],
+      importantHeading:'Wichtig zu wissen',
+      importantParagraphs:[
+        'Auch wenn dir Lernen durch Bewegung und Ausprobieren besonders liegt, solltest du dich nicht darauf beschränken.',
+        'Kombiniere verschiedene Lernwege: anschauen, zuhören, erklären, aufschreiben und selbst ausprobieren.',
+        'Je mehr Wege du beim Lernen nutzt, desto mehr Möglichkeiten gibst du deinem Gehirn, neues Wissen zu verarbeiten und wieder abzurufen.'
+      ],
+      resultStrength:'Ausprobieren &amp; Anwenden'
     },
     lauscher:{
       name:'Lauscher', name_key:'auditiv',
       short:'Du merkst dir Dinge besonders gut, wenn du sie hörst. Erklärungen, Gespräche oder wenn du dir den Lernstoff selbst laut vorsagst, können dir beim Lernen helfen.',
       strength:'Hören &amp; Erinnern',
-      title:'Du bist der auditive Lerntyp',
-      desc:'Du kannst dir Sachen am besten merken, wenn du zuhörst und dir Dinge erklären lässt – oder sie dir selbst laut vorsprichst (am besten, wenn gerade niemand in der Nähe ist ;-)). Du bist der perfekte Schüler oder die perfekte Schülerin für den klassischen Frontalunterricht.',
-      tipsHeading:'Hier noch ein paar weitere Tipps:',
+      tagline:'Lernen durch Hören liegt dir besonders.',
+      paragraphs:[
+        'Du kannst dir Dinge gut merken, wenn du sie hörst, erklärt bekommst oder selbst laut aussprichst. Wenn jemand einen komplizierten Zusammenhang verständlich erklärt, macht es bei dir oft schneller „Klick", als wenn du ihn nur im Schulbuch liest.',
+        'Auch deine eigene Stimme kannst du beim Lernen nutzen. Erkläre dir den Lernstoff selbst, sprich wichtige Begriffe laut aus oder erzähle mit deinen eigenen Worten, was du gerade gelernt hast.'
+      ],
+      tipsHeading:'Das kannst du beim Lernen ausprobieren:',
       tips:[
-        'Lautes Lesen und Lernen hilft dir sehr.',
-        'Nutze Podcasts oder Hörbücher zum Thema.',
-        'Nimm dir – zum Beispiel mit dem Handy – eine Zusammenfassung deiner Lerninhalte auf und hör sie dir vor der Klausur noch einmal an.',
-        'Sprich auch Vokabeln und Gedichte zum Lernen auf!',
-        'Dezente Musik beim Lernen kann helfen, wenn du dich dabei entspannen kannst.',
-        'Noch besser ist aber eine ruhige Umgebung für dein sensibles Gehör.'
-      ]
+        {text:'Lies dir wichtige Inhalte laut vor. So nimmst du den Lernstoff nicht nur über das Lesen, sondern zusätzlich über das Hören auf.'},
+        {lead:'Erklär es dir selbst:', text:'Stell dir vor, du müsstest jemand anderem das Thema erklären. Sprich deine Erklärung laut aus – möglichst mit deinen eigenen Worten.'},
+        {lead:'Mach deine eigenen Lern-Audios:', text:'Nimm Zusammenfassungen, Vokabeln oder wichtige Begriffe mit dem Smartphone auf und hör sie dir später noch einmal an.'},
+        {lead:'Nutze Audioangebote:', text:'Podcasts, Hörtexte und Erklärvideos können eine gute Ergänzung sein – besonders beim Sprachenlernen und für die richtige Aussprache.'},
+        {lead:'Frag nach Erklärungen:', text:'Wenn du etwas nicht verstehst, lass es dir erklären. Manchmal reicht ein anderer Satz oder ein anderes Beispiel und plötzlich wird es klar.'},
+        {lead:'Sorge für Ruhe:', text:'Geräusche können deine Aufmerksamkeit schnell auf sich ziehen. Teste deshalb, ob du dich in einer ruhigen Umgebung besser konzentrieren kannst.'}
+      ],
+      importantHeading:'Wichtig zu wissen',
+      importantParagraphs:[
+        'Auch wenn dir Lernen durch Hören besonders liegt, solltest du andere Lernwege nicht außer Acht lassen.',
+        'Kombiniere zum Beispiel Hören mit Aufschreiben, Anschauen, Erklären und Anwenden. So beschäftigst du dich auf unterschiedliche Weise mit dem Lernstoff und kannst ihn besser verarbeiten.'
+      ],
+      resultStrength:'Hören &amp; Erklären'
     },
     schnacker:{
       name:'Erklärer', name_key:'kommunikativ',
       short:'Du lernst besonders gut, wenn du dich mit anderen austauschst. Über ein Thema sprechen, Fragen stellen oder jemand anderem etwas erklären – dabei sortierst du deine Gedanken und festigst dein Wissen.',
       strength:'Reden &amp; Erklären',
-      title:'Du bist der kommunikative Lerntyp',
-      desc:'Du bist die Quasselstrippe vom Dienst. Du hast viele Freunde, denen deine Meinung wichtig ist. (Fast alle) Lehrer lieben dich, weil du den Unterricht aktiv mitgestaltest.',
-      tipsHeading:'Du brauchst noch eine zündende Idee zum gemeinsamen Lernen? Kein Problem:',
+      tagline:'Lernen durch Austausch liegt dir besonders.',
+      paragraphs:[
+        'Du verstehst Dinge besonders gut, wenn du darüber sprechen, Fragen stellen und deine Gedanken mit anderen teilen kannst. Einfach nur lesen und auswendig lernen? Das reicht dir oft nicht.',
+        'Wenn du jemandem einen Lernstoff mit deinen eigenen Worten erklärst, merkst du schnell, was du schon verstanden hast – und wo noch eine Lücke steckt. Gespräche und Diskussionen helfen dir dabei, deine Gedanken zu sortieren und Zusammenhänge besser zu verstehen.'
+      ],
+      tipsHeading:'Das kannst du beim Lernen ausprobieren:',
       tips:[
-        'Triff dich mit Freunden und probiert eine Quizshow: Jeder schreibt eine Frage zum aktuellen Lernstoff auf eine Karteikarte und legt sie verdeckt auf den Tisch. Jeder zieht eine Karte und versucht, eine gute Antwort zu finden. Ohne Hilfe beantwortet: zwei Punkte, nachgeschlagen: ein Punkt, falsch oder keine Antwort: null Punkte. Der Gewinner bestimmt, wer das nächste Treffen ausrichtet.',
-        'Erklär den Stoff einer anderen Person – laut, im Gespräch.',
-        'Lernt zusammen und fragt euch gegenseitig ab.'
-      ]
+        {lead:'Erklär es jemandem:', text:'Schnapp dir einen Freund, eine Freundin oder jemanden aus deiner Familie und erkläre das Thema so, als wärst du selbst der Lehrer. Kannst du es verständlich erklären, hast du schon viel verstanden.'},
+        {lead:'Lernt gemeinsam:', text:'Trefft euch zu zweit oder in einer kleinen Gruppe. Stellt euch gegenseitig Fragen, vergleicht eure Antworten und erklärt euch schwierige Stellen.'},
+        {lead:'Mach eine Quizrunde:', text:'Schreibt Fragen zum aktuellen Lernstoff auf Karteikarten und legt sie verdeckt auf den Tisch. Zieht abwechselnd eine Karte und versucht, die Frage möglichst genau zu beantworten. Für eine richtige Antwort gibt es einen Punkt – und für eine besonders gute Erklärung vielleicht sogar einen Extrapunkt.'},
+        {lead:'Stell Fragen:', text:'Wenn dir etwas unklar ist, frag nach. Eine gute Frage kann dir manchmal mehr bringen als zehn Minuten weiteres Lesen.'},
+        {lead:'Diskutiere verschiedene Lösungen:', text:'Gerade bei schwierigen Aufgaben kann es helfen, unterschiedliche Lösungswege miteinander zu vergleichen. Erklärt euch gegenseitig, wie ihr auf eure Lösung gekommen seid.'}
+      ],
+      importantHeading:'Wichtig zu wissen',
+      importantParagraphs:[
+        'Auch wenn dir Lernen durch Austausch und Erklären besonders liegt, funktioniert gemeinsames Lernen nur dann gut, wenn ihr wirklich beim Thema bleibt.',
+        'Und auch für dich gilt: Kombiniere verschiedene Lernwege. Anschauen, zuhören, aufschreiben, ausprobieren und erklären ergänzen sich.',
+        'Je mehr du einen Lernstoff selbst verarbeitest und mit deinem vorhandenen Wissen verbindest, desto besser kannst du ihn verstehen und später wieder abrufen.'
+      ],
+      resultStrength:'Austauschen &amp; Erklären'
     }
   };
 
@@ -795,43 +841,52 @@
     return TYPE_ORDER.filter(k => max - percents[k] <= 8);
   }
 
+  function renderTip(tip){
+    if (tip.lead) return '<li><strong>' + tip.lead + '</strong> ' + tip.text + '</li>';
+    return '<li>' + tip.text + '</li>';
+  }
+
   function showResults(){
     const scores = computeScores();
     const percents = computePercents(scores);
     const top = determineTop(percents);
 
-    let headline, summary, tipsHeading, tips, iconKey, closing;
+    let bodyHtml;
     if (top.length === 0){
-      headline = 'Noch unklar';
-      summary = 'Es wurden noch keine eindeutigen Antworten gewertet. Mach den Test noch einmal und wähle bei jeder Frage die Antwort, die am besten zu dir passt.';
-      tipsHeading = '';
-      tips = ['Beantworte jede Frage möglichst spontan und ehrlich.'];
-      iconKey = null;
-      closing = '';
+      bodyHtml =
+        '<h2 class="result-title">Noch unklar</h2>' +
+        '<div class="result-desc"><p>Es wurden noch keine eindeutigen Antworten gewertet. Mach den Test noch einmal und wähle bei jeder Frage die Antwort, die am besten zu dir passt.</p></div>';
     } else if (top.length === 1){
       const t = TYPES[top[0]];
-      iconKey = top[0];
-      headline = t.title;
-      summary = t.desc;
-      tipsHeading = t.tipsHeading;
-      tips = t.tips;
-      closing = RESULT_CLOSING;
+      bodyHtml =
+        '<div class="result-name-row">' +
+          '<div class="result-icon">' + ICONS[top[0]] + '</div>' +
+          '<div><h2 class="result-title">Der ' + t.name + '</h2><p class="result-tagline">' + t.tagline + '</p></div>' +
+        '</div>' +
+        '<div class="result-desc">' + t.paragraphs.map(p => '<p>' + p + '</p>').join('') + '</div>' +
+        '<h3 class="result-tips-heading">' + t.tipsHeading + '</h3>' +
+        '<ul class="tips-list">' + t.tips.map(renderTip).join('') + '</ul>' +
+        '<h3 class="result-tips-heading">' + t.importantHeading + '</h3>' +
+        '<div class="result-important">' + t.importantParagraphs.map(p => '<p>' + p + '</p>').join('') + '</div>' +
+        '<p class="result-strength"><strong>Deine Stärke:</strong> ' + t.resultStrength + '</p>';
     } else {
       const names = top.map(k => TYPES[k].name).join('-');
-      iconKey = top[0];
-      headline = 'Du bist ein <em>' + names + '</em>-Mischtyp';
-      summary = 'Du lernst über mehrere Kanäle etwa gleich gut: ' + top.map(k => TYPES[k].desc.split(/(?<=[.!])\s/)[0]).join(' ') + ' Kombiniere am besten die Strategien der einzelnen Typen.';
-      tipsHeading = 'Diese Tipps helfen dir am meisten:';
-      tips = top.flatMap(k => TYPES[k].tips).slice(0,6);
-      closing = RESULT_CLOSING;
+      const mergedTips = top.flatMap(k => TYPES[k].tips).slice(0,6);
+      const strengths = top.map(k => TYPES[k].name + ': ' + TYPES[k].resultStrength).join(' &middot; ');
+      bodyHtml =
+        '<div class="result-name-row">' +
+          '<div class="result-icon">' + ICONS[top[0]] + '</div>' +
+          '<div><h2 class="result-title">Du bist ein <em>' + names + '</em>-Mischtyp</h2><p class="result-tagline">Mehrere Lernwege liegen dir etwa gleich gut.</p></div>' +
+        '</div>' +
+        '<div class="result-desc">' + top.map(k => '<p>' + TYPES[k].tagline + ' ' + TYPES[k].paragraphs[0] + '</p>').join('') + '</div>' +
+        '<h3 class="result-tips-heading">Das kannst du beim Lernen ausprobieren:</h3>' +
+        '<ul class="tips-list">' + mergedTips.map(renderTip).join('') + '</ul>' +
+        '<h3 class="result-tips-heading">Wichtig zu wissen</h3>' +
+        '<div class="result-important"><p>Du profitierst von mehreren Lernwegen gleichzeitig – nutze das bewusst und wechsle zwischen den Strategien, je nachdem was du gerade lernst.</p></div>' +
+        '<p class="result-strength"><strong>Deine Stärke:</strong> ' + strengths + '</p>';
     }
 
-    $('#result-type').innerHTML = headline;
-    $('#result-summary').textContent = summary;
-    $('#result-icon').innerHTML = iconKey ? ICONS[iconKey] : '';
-    $('#tips-heading').textContent = tipsHeading;
-    $('#tips-list').innerHTML = tips.map(t => '<li>' + t + '</li>').join('');
-    $('#result-closing').textContent = closing;
+    $('#result-body').innerHTML = bodyHtml;
 
     const barsContainer = $('#bars');
     barsContainer.innerHTML = '';
