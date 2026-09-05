@@ -77,6 +77,14 @@
     margin:0 0 1.1rem;
   }
   .intro-copy p:last-child{margin-bottom:0;}
+  .intro-copy strong{color:var(--ink); font-weight:700;}
+  .intro-copy .intro-callout{
+    color:var(--ink);
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+  }
+  .intro-callout strong{color:var(--teal-pop);}
 
   .type-panel{
     background:var(--panel-dark-2);
@@ -113,6 +121,27 @@
     font-size:.83rem;
     color:var(--ink-soft);
     margin:0;
+  }
+  .type-item .type-strength{
+    margin-top:.5rem;
+    font-size:.78rem;
+  }
+  .type-item .type-strength strong{color:var(--teal-pop);}
+
+  .type-outro{
+    margin:0 0 1.6rem;
+    padding-top:1.5rem;
+    border-top:1px dashed var(--line);
+    color:var(--ink-soft);
+    font-size:.95rem;
+  }
+  .type-outro strong{color:var(--ink); font-weight:700;}
+  .type-outro > strong:first-child{
+    display:block;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-size:1.15rem;
+    color:var(--ink);
+    margin-bottom:.5rem;
   }
 
   button.cta{
@@ -399,16 +428,20 @@
 
   <!-- INTRO -->
   <section id="screen-intro">
-    <div class="tag-banner">Viele schätzen sich falsch ein!</div>
+    <div class="tag-banner">Welcher Lernweg passt zu dir?</div>
 
     <div class="intro-copy">
-      <p>Mach den Lerntypentest und finde heraus, welcher Lerntyp du bist. Lernst du den Schulstoff entsprechend deines Typs, kannst du ihn dir noch schneller merken und bei Klassenarbeiten das Beste aus dir herausholen.</p>
-      <p>Du nimmst den Stoff über deine Sinnesorgane auf, die ihn an dein Gehirn weitergeben. Weil diese bei jedem Menschen unterschiedlich ausgeprägt sind, gibt es verschiedene Lerntypen. Am allerbesten ist es, wenn du beim Lernen mehrere Sinnesorgane einsetzt. Dann entsteht ein ganzes Netz aus gedanklichen Verknüpfungen. Cool, oder? Die nächste Klassenarbeit wird so bestimmt ein Klacks.</p>
+      <p>Jeder lernt ein bisschen anders. Manche Dinge bleiben besser hängen, wenn du sie <strong>siehst</strong>, andere, wenn du sie <strong>hörst, aufschreibst, erklärst oder selbst ausprobierst</strong>.</p>
+      <p>Mit unserem Lerntypentest findest du heraus, <strong>welche Lernwege dir besonders liegen</strong> – und wie du sie für deinen Schulalltag nutzen kannst.</p>
+      <p>Denn Lernen funktioniert besonders gut, wenn dein Gehirn Informationen auf verschiedenen Wegen verarbeitet. Je mehr du neue Inhalte miteinander verknüpfst, desto leichter kannst du sie später wieder abrufen.</p>
+      <p><strong>Unser Tipp:</strong> Verlass dich nicht nur auf einen Lernweg. Kombiniere zum Beispiel Lesen, Erklären, Schreiben und Anwenden. So entstehen in deinem Gehirn viele Verbindungen – und genau die helfen dir dabei, Gelerntes besser zu behalten.</p>
+      <p class="intro-callout"><strong>Finde heraus, wie du am besten lernst – und mach dein Lernen leichter und effektiver.</strong></p>
     </div>
 
     <div class="type-panel">
       <h2>Welcher Lerntyp bist du?</h2>
       <div class="type-grid" id="type-grid"></div>
+      <p class="type-outro"><strong>Und welcher Typ bist du?</strong><br>Wahrscheinlich steckt in dir nicht nur einer davon. Die meisten von uns nutzen verschiedene Lernwege. Entscheidend ist, herauszufinden, <strong>was dir beim Lernen hilft – und mehrere Wege clever miteinander zu kombinieren.</strong></p>
       <button class="cta" id="start-test" type="button">Jetzt Test machen</button>
     </div>
     <p class="fineprint">10 Fragen &middot; ca. 5 Minuten &middot; Auswertung erscheint sofort auf dieser Seite</p>
@@ -476,7 +509,8 @@
   const TYPES = {
     checker:{
       name:'Checker', name_key:'visuell',
-      short:'Du verlässt dich auf das, was du siehst. Bilder, Diagramme, Videos – das ist deine Welt. Du bist der visuelle Lerntyp.',
+      short:'Du verstehst Dinge besonders gut, wenn du sie sehen kannst. Bilder, Skizzen, Farben, Mindmaps oder Videos helfen dir dabei, Zusammenhänge zu erkennen und dir Wissen zu merken.',
+      strength:'Sehen &amp; Verstehen',
       title:'Du bist der visuelle Lerntyp',
       desc:'Du verlässt dich auf das, was du siehst. Bilder, Diagramme, Videos – das ist deine Welt. Dein Gehirn verarbeitet und speichert diese Art von Informationen am besten. Schau dir den Lernstoff möglichst oft in Grafiken, Bildern oder kurzen Erklärvideos an – dann bleibt er viel besser hängen.',
       tipsHeading:'Du brauchst noch mehr Tipps? Kein Problem:',
@@ -491,7 +525,8 @@
     },
     macher:{
       name:'Macher', name_key:'motorisch',
-      short:'Learning by doing ist dein Motto und das heißt: einfach ausprobieren! Du bist der motorische Lerntyp.',
+      short:'Nur anschauen? Dir reicht das nicht. Du willst Dinge ausprobieren und selbst machen. Übungen, Experimente und praktische Aufgaben helfen dir, neue Inhalte wirklich zu verstehen.',
+      strength:'Ausprobieren &amp; Anwenden',
       title:'Du bist der motorische Lerntyp',
       desc:'Learning by doing ist dein Motto und das heißt: einfach ausprobieren! Du zögerst nicht lange, sondern legst sofort los. Im Unterricht blühst du auf, wenn du experimentieren und aktiv sein kannst. Deine Mitschüler müssen sich in Acht nehmen, denn du redest mit Händen und Füßen.',
       tipsHeading:'Hier noch weitere Tipps für dich:',
@@ -504,7 +539,8 @@
     },
     lauscher:{
       name:'Lauscher', name_key:'auditiv',
-      short:'Du kannst dir Sachen am besten merken, wenn du zuhörst und dir Dinge erklären lässt. Du bist der auditive Lerntyp.',
+      short:'Du merkst dir Dinge besonders gut, wenn du sie hörst. Erklärungen, Gespräche oder wenn du dir den Lernstoff selbst laut vorsagst, können dir beim Lernen helfen.',
+      strength:'Hören &amp; Erinnern',
       title:'Du bist der auditive Lerntyp',
       desc:'Du kannst dir Sachen am besten merken, wenn du zuhörst und dir Dinge erklären lässt – oder sie dir selbst laut vorsprichst (am besten, wenn gerade niemand in der Nähe ist ;-)). Du bist der perfekte Schüler oder die perfekte Schülerin für den klassischen Frontalunterricht.',
       tipsHeading:'Hier noch ein paar weitere Tipps:',
@@ -518,8 +554,9 @@
       ]
     },
     schnacker:{
-      name:'Schnacker', name_key:'kommunikativ',
-      short:'Du bist die Quasselstrippe vom Dienst. Du hast viele Freunde, denen deine Meinung wichtig ist. Du bist der kommunikative Lerntyp.',
+      name:'Erklärer', name_key:'kommunikativ',
+      short:'Du lernst besonders gut, wenn du dich mit anderen austauschst. Über ein Thema sprechen, Fragen stellen oder jemand anderem etwas erklären – dabei sortierst du deine Gedanken und festigst dein Wissen.',
+      strength:'Reden &amp; Erklären',
       title:'Du bist der kommunikative Lerntyp',
       desc:'Du bist die Quasselstrippe vom Dienst. Du hast viele Freunde, denen deine Meinung wichtig ist. (Fast alle) Lehrer lieben dich, weil du den Unterricht aktiv mitgestaltest.',
       tipsHeading:'Du brauchst noch eine zündende Idee zum gemeinsamen Lernen? Kein Problem:',
@@ -660,6 +697,7 @@
         '<div class="type-icon">' + ICONS[key] + '</div>' +
         '<h3>Der ' + t.name + '</h3>' +
         '<p>' + t.short + '</p>' +
+        '<p class="type-strength"><strong>Deine Stärke:</strong> ' + t.strength + '</p>' +
         '</div>';
     }).join('');
   }
