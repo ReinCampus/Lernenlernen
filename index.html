@@ -500,8 +500,9 @@
   const TYPE_ORDER = ['checker','macher','lauscher','schnacker'];
 
   // ---- Questions ----
-  // Q1, Q2, Q3, Q4: 1:1 übernommen. Q5–Q10: neu ergänzt im selben Stil,
-  // damit der Test alle vier Typen ausgewogen abfragt.
+  // Q1–Q4 und Q6–Q10: 1:1 aus den Original-Screenshots übernommen.
+  // Q5 fehlt in den Screenshots (Sprung von 4 auf 6) und ist hier als
+  // klar erkennbarer Platzhalter markiert, bis der echte Text vorliegt.
   const QUESTIONS = [
     {
       type:'likert', target:'checker',
@@ -541,7 +542,8 @@
       ]
     },
     {
-      type:'likert', target:'lauscher',
+      // PLATZHALTER: echte Frage 5 fehlt in den Screenshots (Sprung 4 → 6).
+      type:'likert', target:'lauscher', placeholder:true,
       text:'Wenn deine Lehrerin etwas erklärt, merkst du dir das oft schon beim einfachen Zuhören – auch ohne mitzuschreiben.',
       options:[
         {label:'Ja, auf jeden Fall.', points:2},
@@ -550,36 +552,36 @@
       ]
     },
     {
-      type:'likert', target:'macher',
-      text:'Beim Lernen für eine Arbeit läufst du am liebsten in deinem Zimmer auf und ab oder wippst mit dem Fuß, statt still am Schreibtisch zu sitzen.',
+      type:'likert', target:'lauscher',
+      text:'Wenn du einen Songtext auswendig lernen willst, hörst du dir lieber das ganze Lied an, anstatt dir den Text durchzulesen.',
       options:[
         {label:'Ja, auf jeden Fall.', points:2},
-        {label:'Ja, manchmal.', points:1},
+        {label:'Ja, glaub’ schon.', points:1},
         {label:'Nein, auf keinen Fall.', points:0}
       ]
     },
     {
       type:'forced',
-      text:'In Erdkunde sollt ihr die Hauptstädte von zehn Ländern lernen. Wie gehst du das an?',
+      text:'Du planst eine Reise nach Las Vegas und bist dir noch unsicher über die genaue Route. Wie gehst du vor?',
       options:[
-        {label:'Du schaust dir eine Landkarte an und prägst dir die Städte bildlich ein.', mapsTo:'checker'},
-        {label:'Du sprichst dir die Hauptstädte laut vor oder lässt sie dir abfragen.', mapsTo:'lauscher'},
-        {label:'Du schreibst die Hauptstädte immer wieder von Hand auf, bis sie sitzen.', mapsTo:'macher'},
-        {label:'Du lernst mit einer Freundin oder einem Freund zusammen und fragt euch gegenseitig ab.', mapsTo:'schnacker'}
+        {label:'Du fragst Leute, die schon dort waren.', mapsTo:'schnacker'},
+        {label:'Du fliegst erstmal in die USA und schaust dann weiter.', mapsTo:'macher'},
+        {label:'Du hörst einen Reisebericht im Internetradio.', mapsTo:'lauscher'},
+        {label:'Du schnappst dir die Reiseführer aus den Bücherregalen von Freunden und der Bibliothek und verschaffst dir einen Überblick.', mapsTo:'checker'}
       ]
     },
     {
-      type:'likert', target:'schnacker',
-      text:'Bevor du eine wichtige Entscheidung triffst, redest du erstmal mit Freunden oder deiner Familie darüber.',
+      type:'likert', target:'macher',
+      text:'Wenn du dich bewegen kannst, während du lernst, geht es leichter und schneller.',
       options:[
         {label:'Ja, auf jeden Fall.', points:2},
-        {label:'Ja, oft.', points:1},
+        {label:'Ja, meistens.', points:1},
         {label:'Nein, auf keinen Fall.', points:0}
       ]
     },
     {
       type:'likert', target:'lauscher',
-      text:'Podcasts, Hörspiele oder Musik laufen bei dir häufig nebenbei – und du merkst dir davon erstaunlich viel.',
+      text:'Mündliche Erklärungen verstehst du sehr gut, selbst wenn die Inhalte richtig kompliziert sind.',
       options:[
         {label:'Ja, auf jeden Fall.', points:2},
         {label:'Ja, manchmal.', points:1},
@@ -588,16 +590,27 @@
     },
     {
       type:'likert', target:'macher',
-      text:'Neue Dinge verstehst du am besten, wenn du sie direkt selbst ausprobieren kannst, statt nur zuzuschauen oder zuzuhören.',
+      text:'Am liebsten führst du Experimente selber durch, praktische Themen liegen dir am meisten.',
       options:[
         {label:'Ja, auf jeden Fall.', points:2},
-        {label:'Ja, meistens.', points:1},
+        {label:'Ja, denke schon.', points:1},
         {label:'Nein, auf keinen Fall.', points:0}
       ]
     }
   ];
 
-  const MAX_PER_TYPE = 6; // 2 Likert-Fragen à 2 Punkte + 2 Forced-Choice-Chancen à 1 Punkt
+  function computeMaxPerType(){
+    const max = {checker:0, macher:0, lauscher:0, schnacker:0};
+    QUESTIONS.forEach(q => {
+      if (q.type === 'likert'){
+        max[q.target] += 2;
+      } else {
+        TYPE_ORDER.forEach(k => { max[k] += 1; });
+      }
+    });
+    return max;
+  }
+  const MAX_PER_TYPE = computeMaxPerType();
 
   // ---- State ----
   let step = 0;
@@ -701,15 +714,22 @@
     return scores;
   }
 
-  function determineTop(scores){
-    const max = Math.max(...TYPE_ORDER.map(k => scores[k]));
+  function computePercents(scores){
+    const percents = {};
+    TYPE_ORDER.forEach(k => { percents[k] = Math.round((scores[k] / MAX_PER_TYPE[k]) * 100); });
+    return percents;
+  }
+
+  function determineTop(percents){
+    const max = Math.max(...TYPE_ORDER.map(k => percents[k]));
     if (max === 0) return [];
-    return TYPE_ORDER.filter(k => max - scores[k] <= 1);
+    return TYPE_ORDER.filter(k => max - percents[k] <= 8);
   }
 
   function showResults(){
     const scores = computeScores();
-    const top = determineTop(scores);
+    const percents = computePercents(scores);
+    const top = determineTop(percents);
 
     let headline, summary, tips, iconKey;
     if (top.length === 0){
@@ -740,7 +760,7 @@
     barsContainer.innerHTML = '';
     TYPE_ORDER.forEach(key => {
       const t = TYPES[key];
-      const pct = Math.round((scores[key] / MAX_PER_TYPE) * 100);
+      const pct = percents[key];
       const isTop = top.includes(key);
       const row = document.createElement('div');
       row.className = 'bar-row' + (isTop ? ' top' : '');
