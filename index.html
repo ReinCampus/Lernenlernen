@@ -273,7 +273,6 @@
     border:1px solid var(--line);
     border-radius:16px;
     padding:2.1rem 1.9rem;
-    text-align:center;
   }
   .result-eyebrow{
     font-size:.85rem;
@@ -283,23 +282,44 @@
     letter-spacing:.06em;
     margin:0 0 .5rem;
   }
+  .result-title{
+    font-size:clamp(1.5rem,4.5vw,2rem);
+    margin:0 0 1.4rem;
+  }
+  .result-title em{color:var(--teal-pop); font-style:normal;}
+  .result-row{
+    display:flex;
+    align-items:flex-start;
+    gap:1.6rem;
+    margin-bottom:1.7rem;
+  }
+  @media (max-width:560px){ .result-row{flex-direction:column; align-items:center; text-align:center;} }
   .result-icon{
-    width:88px; height:88px;
-    margin:0 auto 1rem;
+    flex:none;
+    width:104px; height:104px;
     border-radius:50%;
     background:var(--bg-2-deep);
     border:3px solid var(--teal-pop);
     display:flex; align-items:center; justify-content:center;
   }
-  .result-type{
-    font-size:clamp(1.7rem,5vw,2.2rem);
-    margin:0 0 .7rem;
-  }
-  .result-type em{color:var(--teal-pop); font-style:normal;}
   .result-summary{
     color:var(--ink-soft);
-    max-width:56ch;
-    margin:0 auto;
+    margin:0;
+    flex:1;
+    min-width:0;
+  }
+  .result-tips-heading{
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    margin:0 0 .9rem;
+  }
+  .result-closing{
+    color:var(--ink-mute);
+    font-size:.9rem;
+    margin:1.3rem 0 0;
+    padding-top:1rem;
+    border-top:1px dashed var(--line);
   }
 
   .chart-card{
@@ -348,14 +368,7 @@
   .bar-row.top .bar-fill{background:var(--accent-pink);}
   .bar-row.top .bar-label{color:var(--accent-pink);}
 
-  .tips-card{
-    background:var(--panel-dark-2);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:1.8rem 1.9rem;
-  }
-  .tips-card h3{font-size:1.05rem; margin:0 0 .9rem;}
-  .tips-list{margin:0; padding-left:1.2rem; color:var(--ink-soft);}
+  .tips-list{margin:0 0 1.2rem; padding-left:1.2rem; color:var(--ink-soft);}
   .tips-list li{margin-bottom:.55rem;}
   .tips-list li:last-child{margin-bottom:0;}
 
@@ -423,19 +436,19 @@
     <div class="stack">
       <div class="result-hero">
         <p class="result-eyebrow">Deine Auswertung</p>
-        <div class="result-icon" id="result-icon"></div>
-        <h2 class="result-type" id="result-type"></h2>
-        <p class="result-summary" id="result-summary"></p>
+        <h2 class="result-title" id="result-type"></h2>
+        <div class="result-row">
+          <div class="result-icon" id="result-icon"></div>
+          <p class="result-summary" id="result-summary"></p>
+        </div>
+        <h3 class="result-tips-heading" id="tips-heading"></h3>
+        <ul class="tips-list" id="tips-list"></ul>
+        <p class="result-closing" id="result-closing"></p>
       </div>
 
       <div class="chart-card">
         <h3>Deine Lerntypen im Überblick</h3>
         <div id="bars"></div>
-      </div>
-
-      <div class="tips-card">
-        <h3>Das hilft dir beim Lernen</h3>
-        <ul class="tips-list" id="tips-list"></ul>
       </div>
 
       <div class="restart-row">
@@ -458,41 +471,62 @@
     schnacker: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v10H9l-4 3.5v-3.5H4v-10Z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>'
   };
 
+  const RESULT_CLOSING = 'Jetzt kennst du deinen Lerntyp, mit dem du deine Stärken am besten nutzen kannst. Pssst … verwende auch die anderen Kanäle. Die meisten Leute sind eine Kombi aus verschiedenen Lerntypen!';
+
   const TYPES = {
     checker:{
       name:'Checker', name_key:'visuell',
       short:'Du verlässt dich auf das, was du siehst. Bilder, Diagramme, Videos – das ist deine Welt. Du bist der visuelle Lerntyp.',
+      title:'Du bist der visuelle Lerntyp',
+      desc:'Du verlässt dich auf das, was du siehst. Bilder, Diagramme, Videos – das ist deine Welt. Dein Gehirn verarbeitet und speichert diese Art von Informationen am besten. Schau dir den Lernstoff möglichst oft in Grafiken, Bildern oder kurzen Erklärvideos an – dann bleibt er viel besser hängen.',
+      tipsHeading:'Du brauchst noch mehr Tipps? Kein Problem:',
       tips:[
-        'Nutze Mindmaps, Farben und Karteikarten mit Bildern oder Symbolen.',
-        'Schau dir Erklärvideos, Diagramme oder Schaubilder zum Thema an.',
-        'Schreib dir Zusammenfassungen mit Unterstreichungen und Markierungen.'
+        'Markiere wichtige Textstellen oder skizziere das Gelernte.',
+        'Verwende bei deinen Aufzeichnungen unterschiedliche Farben.',
+        'Nutze Symbole, zum Beispiel in einem Karteikarten-System.',
+        'Kennst du Mindmaps? Lernen mit Gedanken-Landkarten könnte dir ebenfalls helfen.',
+        'Denk dir Bilder zu den Lerninhalten aus – je verrückter, desto besser kannst du sie dir merken.',
+        'Ein aufgeräumter Schreibtisch hilft visuellen Lerntypen. Also schnell noch alles sortieren, dann durchstarten!'
       ]
     },
     macher:{
       name:'Macher', name_key:'motorisch',
       short:'Learning by doing ist dein Motto und das heißt: einfach ausprobieren! Du bist der motorische Lerntyp.',
+      title:'Du bist der motorische Lerntyp',
+      desc:'Learning by doing ist dein Motto und das heißt: einfach ausprobieren! Du zögerst nicht lange, sondern legst sofort los. Im Unterricht blühst du auf, wenn du experimentieren und aktiv sein kannst. Deine Mitschüler müssen sich in Acht nehmen, denn du redest mit Händen und Füßen.',
+      tipsHeading:'Hier noch weitere Tipps für dich:',
       tips:[
-        'Lerne im Gehen, im Stehen oder mit kurzen Bewegungspausen.',
-        'Baue Modelle, mach Experimente oder schreib von Hand statt nur zu lesen.',
-        'Verbinde Lerninhalte mit Rollenspielen oder realen Handlungen.'
+        'Nutze deinen Bewegungsdrang: Geh beim Auswendiglernen von einer Zimmerecke in die andere – jeder Schritt kann für ein Wort oder eine Strophe stehen.',
+        'Stell den Lernstoff szenisch dar oder unterstütze ihn mit Gesten.',
+        'Leg dich beim Lernen in die Hängematte – durch die Bewegung prägst du dir den Stoff besser ein. Aber nicht einschlafen! ;-)',
+        'Bau Modelle oder mach kleine Experimente zum Thema, wo immer das geht.'
       ]
     },
     lauscher:{
       name:'Lauscher', name_key:'auditiv',
       short:'Du kannst dir Sachen am besten merken, wenn du zuhörst und dir Dinge erklären lässt. Du bist der auditive Lerntyp.',
+      title:'Du bist der auditive Lerntyp',
+      desc:'Du kannst dir Sachen am besten merken, wenn du zuhörst und dir Dinge erklären lässt – oder sie dir selbst laut vorsprichst (am besten, wenn gerade niemand in der Nähe ist ;-)). Du bist der perfekte Schüler oder die perfekte Schülerin für den klassischen Frontalunterricht.',
+      tipsHeading:'Hier noch ein paar weitere Tipps:',
       tips:[
-        'Lies den Stoff laut vor oder sprich ihn dir als Sprachnotiz auf.',
-        'Lass dir Zusammenhänge erklären oder erklär sie selbst laut jemandem.',
-        'Nutze Hörbücher, Podcasts oder Gespräche zum Thema.'
+        'Lautes Lesen und Lernen hilft dir sehr.',
+        'Nutze Podcasts oder Hörbücher zum Thema.',
+        'Nimm dir – zum Beispiel mit dem Handy – eine Zusammenfassung deiner Lerninhalte auf und hör sie dir vor der Klausur noch einmal an.',
+        'Sprich auch Vokabeln und Gedichte zum Lernen auf!',
+        'Dezente Musik beim Lernen kann helfen, wenn du dich dabei entspannen kannst.',
+        'Noch besser ist aber eine ruhige Umgebung für dein sensibles Gehör.'
       ]
     },
     schnacker:{
       name:'Schnacker', name_key:'kommunikativ',
       short:'Du bist die Quasselstrippe vom Dienst. Du hast viele Freunde, denen deine Meinung wichtig ist. Du bist der kommunikative Lerntyp.',
+      title:'Du bist der kommunikative Lerntyp',
+      desc:'Du bist die Quasselstrippe vom Dienst. Du hast viele Freunde, denen deine Meinung wichtig ist. (Fast alle) Lehrer lieben dich, weil du den Unterricht aktiv mitgestaltest.',
+      tipsHeading:'Du brauchst noch eine zündende Idee zum gemeinsamen Lernen? Kein Problem:',
       tips:[
-        'Lern in einer Gruppe und fragt euch gegenseitig ab.',
-        'Erklär den Stoff einer anderen Person – am besten laut und im Gespräch.',
-        'Diskutiere neue Themen mit Freunden oder deiner Familie.'
+        'Triff dich mit Freunden und probiert eine Quizshow: Jeder schreibt eine Frage zum aktuellen Lernstoff auf eine Karteikarte und legt sie verdeckt auf den Tisch. Jeder zieht eine Karte und versucht, eine gute Antwort zu finden. Ohne Hilfe beantwortet: zwei Punkte, nachgeschlagen: ein Punkt, falsch oder keine Antwort: null Punkte. Der Gewinner bestimmt, wer das nächste Treffen ausrichtet.',
+        'Erklär den Stoff einer anderen Person – laut, im Gespräch.',
+        'Lernt zusammen und fragt euch gegenseitig ab.'
       ]
     }
   };
@@ -728,30 +762,38 @@
     const percents = computePercents(scores);
     const top = determineTop(percents);
 
-    let headline, summary, tips, iconKey;
+    let headline, summary, tipsHeading, tips, iconKey, closing;
     if (top.length === 0){
       headline = 'Noch unklar';
       summary = 'Es wurden noch keine eindeutigen Antworten gewertet. Mach den Test noch einmal und wähle bei jeder Frage die Antwort, die am besten zu dir passt.';
+      tipsHeading = '';
       tips = ['Beantworte jede Frage möglichst spontan und ehrlich.'];
       iconKey = null;
+      closing = '';
     } else if (top.length === 1){
       const t = TYPES[top[0]];
       iconKey = top[0];
-      headline = 'Du bist der <em>' + t.name + '</em>';
-      summary = t.short;
+      headline = t.title;
+      summary = t.desc;
+      tipsHeading = t.tipsHeading;
       tips = t.tips;
+      closing = RESULT_CLOSING;
     } else {
       const names = top.map(k => TYPES[k].name).join('-');
       iconKey = top[0];
       headline = 'Du bist ein <em>' + names + '</em>-Mischtyp';
-      summary = 'Du lernst über mehrere Kanäle etwa gleich gut – kombiniere die passenden Strategien.';
-      tips = top.flatMap(k => TYPES[k].tips).slice(0,5);
+      summary = 'Du lernst über mehrere Kanäle etwa gleich gut: ' + top.map(k => TYPES[k].desc.split(/(?<=[.!])\s/)[0]).join(' ') + ' Kombiniere am besten die Strategien der einzelnen Typen.';
+      tipsHeading = 'Diese Tipps helfen dir am meisten:';
+      tips = top.flatMap(k => TYPES[k].tips).slice(0,6);
+      closing = RESULT_CLOSING;
     }
 
     $('#result-type').innerHTML = headline;
     $('#result-summary').textContent = summary;
     $('#result-icon').innerHTML = iconKey ? ICONS[iconKey] : '';
+    $('#tips-heading').textContent = tipsHeading;
     $('#tips-list').innerHTML = tips.map(t => '<li>' + t + '</li>').join('');
+    $('#result-closing').textContent = closing;
 
     const barsContainer = $('#bars');
     barsContainer.innerHTML = '';
