@@ -500,9 +500,7 @@
   const TYPE_ORDER = ['checker','macher','lauscher','schnacker'];
 
   // ---- Questions ----
-  // Q1–Q4 und Q6–Q10: 1:1 aus den Original-Screenshots übernommen.
-  // Q5 fehlt in den Screenshots (Sprung von 4 auf 6) und ist hier als
-  // klar erkennbarer Platzhalter markiert, bis der echte Text vorliegt.
+  // Q1–Q10: 1:1 aus den Original-Screenshots übernommen.
   const QUESTIONS = [
     {
       type:'likert', target:'checker',
@@ -542,12 +540,11 @@
       ]
     },
     {
-      // PLATZHALTER: echte Frage 5 fehlt in den Screenshots (Sprung 4 → 6).
-      type:'likert', target:'lauscher', placeholder:true,
-      text:'Wenn deine Lehrerin etwas erklärt, merkst du dir das oft schon beim einfachen Zuhören – auch ohne mitzuschreiben.',
+      type:'likert', target:'schnacker',
+      text:'Sachen, die du in einer Diskussion mit anderen besprichst, kannst du dir immer viel besser vorstellen als gelesene Texte.',
       options:[
         {label:'Ja, auf jeden Fall.', points:2},
-        {label:'Ja, meistens.', points:1},
+        {label:'Ja, denke schon.', points:1},
         {label:'Nein, auf keinen Fall.', points:0}
       ]
     },
