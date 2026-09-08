@@ -132,10 +132,20 @@
     margin:0;
   }
   .type-item .type-strength{
-    margin-top:.5rem;
+    margin-top:.6rem;
     font-size:.78rem;
+    line-height:1.4;
   }
-  .type-item .type-strength strong{color:var(--teal-pop);}
+  .type-item .type-strength .label{
+    display:block;
+    color:var(--ink-mute);
+  }
+  .type-item .type-strength .value{
+    display:block;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:700;
+    color:var(--teal-pop);
+  }
 
   .type-outro{
     margin:0 0 1.6rem;
@@ -464,7 +474,7 @@
     </div>
 
     <div class="type-panel">
-      <h2>Welcher Lerntyp bist du?</h2>
+      <h2>Welcher Lernweg passt zu dir?</h2>
       <div class="type-grid" id="type-grid"></div>
       <p class="type-outro"><strong>Und welcher Typ bist du?</strong><br>Wahrscheinlich steckt in dir nicht nur einer davon. Die meisten von uns nutzen verschiedene Lernwege. Entscheidend ist, herauszufinden, <strong>was dir beim Lernen hilft – und mehrere Wege clever miteinander zu kombinieren.</strong></p>
       <button class="cta" id="start-test" type="button">Jetzt Test machen</button>
@@ -525,8 +535,8 @@
   const TYPES = {
     checker:{
       name:'Checker', name_key:'visuell',
-      short:'Du verstehst Dinge besonders gut, wenn du sie sehen kannst. Bilder, Skizzen, Farben, Mindmaps oder Videos helfen dir dabei, Zusammenhänge zu erkennen und dir Wissen zu merken.',
-      strength:'Sehen &amp; Verstehen',
+      short:'Du verstehst Dinge besonders gut, wenn du sie sehen kannst. Bilder, Skizzen, Farben, Mindmaps oder Videos helfen dir, Zusammenhänge zu erkennen und Wissen zu ordnen.',
+      strength:'Sehen &amp; Strukturieren',
       tagline:'Lernen durch Sehen liegt dir besonders.',
       paragraphs:[
         'Du verstehst Dinge besonders gut, wenn du sie vor dir sehen kannst. Bilder, Skizzen, Grafiken, Farben oder Videos helfen dir dabei, Zusammenhänge zu erkennen und neue Informationen zu ordnen.',
@@ -552,7 +562,7 @@
     },
     macher:{
       name:'Macher', name_key:'motorisch',
-      short:'Nur anschauen? Dir reicht das nicht. Du willst Dinge ausprobieren und selbst machen. Übungen, Experimente und praktische Aufgaben helfen dir, neue Inhalte wirklich zu verstehen.',
+      short:'Du willst nicht nur zuschauen, sondern selbst loslegen. Ausprobieren, üben und anwenden hilft dir dabei, neue Inhalte zu verstehen und zu behalten.',
       strength:'Ausprobieren &amp; Anwenden',
       tagline:'Lernen durch Ausprobieren liegt dir besonders.',
       paragraphs:[
@@ -577,7 +587,7 @@
     },
     lauscher:{
       name:'Lauscher', name_key:'auditiv',
-      short:'Du merkst dir Dinge besonders gut, wenn du sie hörst. Erklärungen, Gespräche oder wenn du dir den Lernstoff selbst laut vorsagst, können dir beim Lernen helfen.',
+      short:'Du merkst dir Dinge besonders gut, wenn du sie hörst. Erklärungen, Gespräche oder den Lernstoff selbst laut auszusprechen kann dir beim Lernen helfen.',
       strength:'Hören &amp; Erinnern',
       tagline:'Lernen durch Hören liegt dir besonders.',
       paragraphs:[
@@ -602,8 +612,8 @@
     },
     schnacker:{
       name:'Erklärer', name_key:'kommunikativ',
-      short:'Du lernst besonders gut, wenn du dich mit anderen austauschst. Über ein Thema sprechen, Fragen stellen oder jemand anderem etwas erklären – dabei sortierst du deine Gedanken und festigst dein Wissen.',
-      strength:'Reden &amp; Erklären',
+      short:'Du lernst besonders gut, wenn du dich mit anderen austauschst. Fragen stellen, über ein Thema sprechen oder es jemandem erklären hilft dir, deine Gedanken zu sortieren und Wissen zu festigen.',
+      strength:'Austauschen &amp; Erklären',
       tagline:'Lernen durch Austausch liegt dir besonders.',
       paragraphs:[
         'Du verstehst Dinge besonders gut, wenn du darüber sprechen, Fragen stellen und deine Gedanken mit anderen teilen kannst. Einfach nur lesen und auswendig lernen? Das reicht dir oft nicht.',
@@ -756,7 +766,7 @@
         '<div class="type-icon">' + ICONS[key] + '</div>' +
         '<h3>Der ' + t.name + '</h3>' +
         '<p>' + t.short + '</p>' +
-        '<p class="type-strength"><strong>Deine Stärke:</strong> ' + t.strength + '</p>' +
+        '<p class="type-strength"><span class="label">Deine Stärke:</span><span class="value">' + t.strength + '</span></p>' +
         '</div>';
     }).join('');
   }
