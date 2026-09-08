@@ -151,17 +151,17 @@
     margin:0 0 1.6rem;
     padding-top:1.5rem;
     border-top:1px dashed var(--line);
+  }
+  .type-outro h3{
+    font-size:1.15rem;
+    margin:0 0 .7rem;
+  }
+  .type-outro p{
     color:var(--ink-soft);
     font-size:.95rem;
+    margin:0 0 .7rem;
   }
-  .type-outro strong{color:var(--ink); font-weight:700;}
-  .type-outro > strong:first-child{
-    display:block;
-    font-family:'Baloo 2', system-ui, sans-serif;
-    font-size:1.15rem;
-    color:var(--ink);
-    margin-bottom:.5rem;
-  }
+  .type-outro p:last-child{margin-bottom:0;}
 
   button.cta{
     display:block;
@@ -476,8 +476,12 @@
     <div class="type-panel">
       <h2>Welcher Lernweg passt zu dir?</h2>
       <div class="type-grid" id="type-grid"></div>
-      <p class="type-outro"><strong>Und welcher Typ bist du?</strong><br>Wahrscheinlich steckt in dir nicht nur einer davon. Die meisten von uns nutzen verschiedene Lernwege. Entscheidend ist, herauszufinden, <strong>was dir beim Lernen hilft – und mehrere Wege clever miteinander zu kombinieren.</strong></p>
-      <button class="cta" id="start-test" type="button">Jetzt Test machen</button>
+      <div class="type-outro">
+        <h3>Und welcher Lernweg passt zu dir?</h3>
+        <p>Vielleicht hast du dich schon bei mehreren wiedererkannt. Das ist ganz normal. Denn die meisten von uns lernen nicht nur auf einem Weg.</p>
+        <p>Entscheidend ist, herauszufinden, was dir beim Lernen wirklich hilft – und verschiedene Lernwege clever miteinander zu kombinieren.</p>
+      </div>
+      <button class="cta" id="start-test" type="button">Finde deinen Lernweg</button>
     </div>
     <p class="fineprint">10 Fragen &middot; ca. 5 Minuten &middot; Auswertung erscheint sofort auf dieser Seite</p>
   </section>
