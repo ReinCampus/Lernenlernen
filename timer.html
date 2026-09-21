@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Intervall-Timer</title>
+<meta name="description" content="Timer für dein Handy: gibt alle X Minuten einen Ton und endet nach der eingegebenen Zeit.">
+<meta name="theme-color" content="#0c3b3d">
+<link rel="manifest" href="timer-manifest.json">
+<link rel="icon" href="assets/timer-icon-192.png">
+<link rel="apple-touch-icon" href="assets/timer-icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Timer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c3b3d;
+    --bg-2:#12787a;
+    --bg-2-deep:#0d5f60;
+    --panel-dark:#092d2e;
+    --panel-dark-2:#0a3436;
+    --ink:#ffffff;
+    --ink-soft:#cfe9e7;
+    --ink-mute:#8fb8b6;
+    --accent-pink:#ee1d78;
+    --accent-pink-strong:#c8135f;
+    --accent-orange:#e6905f;
+    --accent-orange-strong:#c26f3f;
+    --rc-green:#38b2af;
+    --teal-pop:#1fc9bf;
+    --line:rgba(255,255,255,.14);
+    --focus:#1fc9bf;
+  }
+  *{box-sizing:border-box;}
+  html,body{background:var(--bg);}
+  body{
+    margin:0;
+    min-height:100vh;
+    color:var(--ink);
+    font-family:'Mulish', system-ui, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  h1,h2,.display{
+    font-family:'Baloo 2', system-ui, sans-serif;
+    text-wrap:balance;
+  }
+  .mono{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    padding:2rem 1.25rem 3rem;
+  }
+  .brand-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:1.6rem;
+  }
+  .brand-header h1{
+    font-size:1.5rem;
+    font-weight:700;
+    margin:0;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  .back-link{
+    color:var(--ink-mute);
+    font-size:.85rem;
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  .back-link:hover{border-color:var(--ink-mute);}
+
+  .card{
+    background:var(--panel-dark-2);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:1.5rem;
+    margin-bottom:1.25rem;
+  }
+
+  /* ---- setup ---- */
+  .field{margin-bottom:1.1rem;}
+  .field:last-child{margin-bottom:0;}
+  .field label{
+    display:block;
+    font-size:.85rem;
+    font-weight:700;
+    color:var(--ink-soft);
+    margin-bottom:.45rem;
+  }
+  .field .hint{
+    font-size:.78rem;
+    color:var(--ink-mute);
+    margin-top:.35rem;
+  }
+  .num-input{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  .num-input input{
+    flex:1;
+    min-width:0;
+    background:var(--panel-dark);
+    border:1px solid var(--line);
+    border-radius:12px;
+    color:var(--ink);
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:1.4rem;
+    font-weight:700;
+    padding:.6rem .7rem;
+    text-align:center;
+  }
+  .num-input input:focus{outline:2px solid var(--focus); outline-offset:1px;}
+  .step-btn{
+    width:2.6rem;
+    height:2.6rem;
+    flex:0 0 auto;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:var(--panel-dark);
+    color:var(--ink);
+    font-size:1.3rem;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .step-btn:active{background:var(--bg-2-deep);}
+  .unit{font-size:.9rem; color:var(--ink-mute); flex:0 0 auto;}
+
+  .chips{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem;}
+  .chip{
+    border:1px solid var(--line);
+    background:var(--panel-dark);
+    color:var(--ink-soft);
+    border-radius:999px;
+    padding:.4rem .9rem;
+    font-size:.85rem;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .chip.active{
+    background:var(--teal-pop);
+    border-color:var(--teal-pop);
+    color:var(--panel-dark);
+  }
+
+  .checkbox-row{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    font-size:.88rem;
+    color:var(--ink-soft);
+  }
+  .checkbox-row input{width:1.15rem; height:1.15rem;}
+
+  /* ---- timer display ---- */
+  .timer-stage{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:1rem 0 .5rem;
+  }
+  .ring-wrap{position:relative; width:min(72vw, 260px); height:min(72vw, 260px);}
+  .ring-wrap svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .ring-track{fill:none; stroke:var(--panel-dark); stroke-width:10;}
+  .ring-progress{
+    fill:none;
+    stroke:var(--teal-pop);
+    stroke-width:10;
+    stroke-linecap:round;
+    transition:stroke-dashoffset .25s linear, stroke .3s;
+  }
+  .ring-center{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:.25rem;
+  }
+  .time-display{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:clamp(2.2rem, 9vw, 3rem);
+    font-weight:700;
+    letter-spacing:.02em;
+  }
+  .status-label{
+    font-size:.85rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--teal-pop);
+  }
+  .status-label.done{color:var(--accent-orange);}
+  .status-label.paused{color:var(--accent-pink);}
+  .sub-info{
+    margin-top:.9rem;
+    font-size:.85rem;
+    color:var(--ink-mute);
+  }
+
+  .btn-row{
+    display:flex;
+    gap:.7rem;
+    margin-top:1.4rem;
+    width:100%;
+  }
+  .btn{
+    flex:1;
+    border:none;
+    border-radius:14px;
+    padding:.95rem 1rem;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--accent-orange); color:#241005;}
+  .btn-primary:hover{background:var(--accent-orange-strong);}
+  .btn-secondary{background:var(--panel-dark); border:1px solid var(--line); color:var(--ink-soft);}
+  .btn-danger{background:transparent; border:1px solid var(--accent-pink); color:var(--accent-pink);}
+  .btn-full{width:100%;}
+  .btn[disabled]{opacity:.45; cursor:not-allowed;}
+
+  .test-sound{
+    margin-top:.9rem;
+    background:none;
+    border:none;
+    color:var(--ink-mute);
+    font-size:.82rem;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:.3rem;
+  }
+
+  details.install-help{
+    color:var(--ink-mute);
+    font-size:.85rem;
+  }
+  details.install-help summary{
+    cursor:pointer;
+    font-weight:700;
+    color:var(--ink-soft);
+  }
+  details.install-help p{margin:.6rem 0;}
+  details.install-help strong{color:var(--ink);}
+
+  .warn-banner{
+    display:none;
+    background:rgba(238,29,120,.12);
+    border:1px solid var(--accent-pink);
+    color:var(--ink-soft);
+    border-radius:12px;
+    padding:.8rem .9rem;
+    font-size:.82rem;
+    margin-bottom:1.25rem;
+  }
+  .warn-banner.show{display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand-header">
+    <h1>⏱ Intervall-Timer</h1>
+    <a class="back-link" href="index.html">← Lernwegetest</a>
+  </div>
+
+  <div class="warn-banner" id="bgWarning">
+    Hinweis: Wenn das Handy-Display ausgeht oder die App in den Hintergrund wechselt, können Browser die Töne verzögern oder aussetzen lassen. Aktiviere unten „Bildschirm an lassen“ und installiere die App auf dem Home-Bildschirm für zuverlässige Signale.
+  </div>
+
+  <div class="card" id="setupCard">
+    <div class="field">
+      <label for="durationInput">Gesamtdauer (Minuten)</label>
+      <div class="num-input">
+        <button class="step-btn" type="button" id="durMinus" aria-label="weniger">−</button>
+        <input type="number" id="durationInput" inputmode="decimal" min="1" step="1" value="20">
+        <button class="step-btn" type="button" id="durPlus" aria-label="mehr">+</button>
+      </div>
+      <div class="chips" id="durChips">
+        <button class="chip" type="button" data-min="5">5</button>
+        <button class="chip" type="button" data-min="10">10</button>
+        <button class="chip" type="button" data-min="15">15</button>
+        <button class="chip active" type="button" data-min="20">20</button>
+        <button class="chip" type="button" data-min="30">30</button>
+        <button class="chip" type="button" data-min="45">45</button>
+        <button class="chip" type="button" data-min="60">60</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="intervalInput">Signalton alle … Minuten</label>
+      <div class="num-input">
+        <button class="step-btn" type="button" id="intMinus" aria-label="weniger">−</button>
+        <input type="number" id="intervalInput" inputmode="decimal" min="0.5" step="0.5" value="2">
+        <button class="step-btn" type="button" id="intPlus" aria-label="mehr">+</button>
+      </div>
+      <div class="hint">Standard: alle 2 Minuten ein Ton, bis die Gesamtdauer erreicht ist.</div>
+    </div>
+
+    <div class="field">
+      <label class="checkbox-row">
+        <input type="checkbox" id="wakeLockToggle" checked>
+        Bildschirm an lassen, solange der Timer läuft
+      </label>
+    </div>
+
+    <button class="test-sound" id="testSound" type="button">🔊 Ton testen</button>
+  </div>
+
+  <div class="card timer-stage">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+        <circle class="ring-progress" id="ringProgress" cx="60" cy="60" r="52"></circle>
+      </svg>
+      <div class="ring-center">
+        <div class="status-label" id="statusLabel">Bereit</div>
+        <div class="time-display mono" id="timeDisplay">20:00</div>
+      </div>
+    </div>
+    <div class="sub-info" id="subInfo">Signal Nr. 0 von 0 · nächstes Signal in 02:00</div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="resetBtn" type="button" disabled>Zurücksetzen</button>
+      <button class="btn btn-primary" id="startBtn" type="button">Start</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <details class="install-help">
+      <summary>Als App auf dem Handy installieren</summary>
+      <p><strong>Android (Chrome):</strong> Menü (⋮) oben rechts → „App installieren“ bzw. „Zum Startbildschirm hinzufügen“.</p>
+      <p><strong>iPhone (Safari):</strong> Teilen-Symbol (□↑) → „Zum Home-Bildschirm“.</p>
+      <p>Danach startet der Timer als eigenes App-Icon, ohne Browserleiste.</p>
+    </details>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const durationInput = document.getElementById('durationInput');
+  const intervalInput = document.getElementById('intervalInput');
+  const durMinus = document.getElementById('durMinus');
+  const durPlus = document.getElementById('durPlus');
+  const intMinus = document.getElementById('intMinus');
+  const intPlus = document.getElementById('intPlus');
+  const durChips = document.getElementById('durChips');
+  const wakeLockToggle = document.getElementById('wakeLockToggle');
+  const testSoundBtn = document.getElementById('testSound');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const timeDisplay = document.getElementById('timeDisplay');
+  const statusLabel = document.getElementById('statusLabel');
+  const subInfo = document.getElementById('subInfo');
+  const ringProgress = document.getElementById('ringProgress');
+  const bgWarning = document.getElementById('bgWarning');
+  const setupCard = document.getElementById('setupCard');
+
+  const RING_R = 52;
+  const RING_CIRC = 2 * Math.PI * RING_R;
+  ringProgress.style.strokeDasharray = RING_CIRC.toFixed(2);
+
+  let audioCtx = null;
+  function getAudioCtx(){
+    if(!audioCtx){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if(audioCtx.state === 'suspended'){ audioCtx.resume(); }
+    return audioCtx;
+  }
+
+  function beep(freqs, duration, gap){
+    const ctx = getAudioCtx();
+    let t = ctx.currentTime;
+    freqs.forEach((freq) => {
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gainNode.gain.setValueAtTime(0, t);
+      gainNode.gain.linearRampToValueAtTime(0.35, t + 0.02);
+      gainNode.gain.linearRampToValueAtTime(0, t + duration);
+      osc.connect(gainNode).connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + duration + 0.02);
+      t += duration + (gap || 0.05);
+    });
+  }
+
+  function playIntervalBeep(){
+    beep([880, 880], 0.16, 0.08);
+    if(navigator.vibrate){ try{ navigator.vibrate(180); }catch(e){} }
+  }
+
+  function playEndBeep(){
+    beep([660, 830, 990, 1180], 0.22, 0.06);
+    if(navigator.vibrate){ try{ navigator.vibrate([250,120,250,120,400]); }catch(e){} }
+  }
+
+  testSoundBtn.addEventListener('click', () => {
+    playIntervalBeep();
+  });
+
+  // ---- duration / interval inputs ----
+  function clampNumberInput(input, min, step){
+    let val = parseFloat(input.value);
+    if(isNaN(val) || val < min) val = min;
+    input.value = val;
+    return val;
+  }
+
+  durMinus.addEventListener('click', () => {
+    durationInput.value = Math.max(1, (parseFloat(durationInput.value)||1) - 1);
+    syncChipActive();
+    updateIdleDisplay();
+  });
+  durPlus.addEventListener('click', () => {
+    durationInput.value = (parseFloat(durationInput.value)||0) + 1;
+    syncChipActive();
+    updateIdleDisplay();
+  });
+  intMinus.addEventListener('click', () => {
+    intervalInput.value = Math.max(0.5, (parseFloat(intervalInput.value)||0.5) - 0.5);
+    updateIdleDisplay();
+  });
+  intPlus.addEventListener('click', () => {
+    intervalInput.value = (parseFloat(intervalInput.value)||0) + 0.5;
+    updateIdleDisplay();
+  });
+  durationInput.addEventListener('change', () => { clampNumberInput(durationInput, 1); syncChipActive(); updateIdleDisplay(); });
+  intervalInput.addEventListener('change', () => { clampNumberInput(intervalInput, 0.5); updateIdleDisplay(); });
+
+  durChips.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if(!chip) return;
+    durationInput.value = chip.dataset.min;
+    syncChipActive();
+    updateIdleDisplay();
+  });
+
+  function syncChipActive(){
+    const val = String(parseFloat(durationInput.value));
+    [...durChips.children].forEach((chip) => {
+      chip.classList.toggle('active', chip.dataset.min === val);
+    });
+  }
+
+  function formatTime(ms){
+    const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+    return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+
+  function updateIdleDisplay(){
+    if(running) return;
+    const durMin = clampNumberInput(durationInput, 1);
+    const intMin = clampNumberInput(intervalInput, 0.5);
+    timeDisplay.textContent = formatTime(durMin * 60000);
+    const totalBeeps = Math.max(0, Math.floor((durMin * 60000 - 1) / (intMin * 60000)));
+    subInfo.textContent = `Signal Nr. 0 von ${totalBeeps} · nächstes Signal in ${formatTime(intMin*60000)}`;
+    setRing(1);
+    statusLabel.textContent = 'Bereit';
+    statusLabel.className = 'status-label';
+  }
+
+  function setRing(fraction){
+    const offset = RING_CIRC * (1 - Math.max(0, Math.min(1, fraction)));
+    ringProgress.style.strokeDashoffset = offset.toFixed(2);
+  }
+
+  // ---- timer state ----
+  let running = false;
+  let paused = false;
+  let totalDurationMs = 0;
+  let intervalMs = 0;
+  let accumulatedMs = 0;
+  let runStart = 0;
+  let beepsPlayed = 0;
+  let totalBeeps = 0;
+  let tickHandle = null;
+  let wakeLock = null;
+
+  async function acquireWakeLock(){
+    if(!wakeLockToggle.checked || !('wakeLock' in navigator)) return;
+    try{
+      wakeLock = await navigator.wakeLock.request('screen');
+      wakeLock.addEventListener('release', () => { wakeLock = null; });
+    }catch(e){ /* ignore: not available / denied */ }
+  }
+  function releaseWakeLock(){
+    if(wakeLock){ wakeLock.release().catch(()=>{}); wakeLock = null; }
+  }
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible' && running && !paused){
+      acquireWakeLock();
+    }
+  });
+
+  function getElapsed(){
+    return accumulatedMs + (running && !paused ? (Date.now() - runStart) : 0);
+  }
+
+  function tick(){
+    const elapsed = getElapsed();
+    const remaining = totalDurationMs - elapsed;
+
+    if(remaining <= 0){
+      finish();
+      return;
+    }
+
+    const expectedBeeps = Math.floor(elapsed / intervalMs);
+    if(expectedBeeps > beepsPlayed){
+      beepsPlayed = expectedBeeps;
+      playIntervalBeep();
+    }
+
+    timeDisplay.textContent = formatTime(remaining);
+    setRing(remaining / totalDurationMs);
+    const nextBeepIn = intervalMs - (elapsed % intervalMs);
+    subInfo.textContent = `Signal Nr. ${beepsPlayed} von ${totalBeeps} · nächstes Signal in ${formatTime(nextBeepIn)}`;
+  }
+
+  function finish(){
+    stopTicking();
+    timeDisplay.textContent = '00:00';
+    setRing(0);
+    statusLabel.textContent = 'Fertig!';
+    statusLabel.className = 'status-label done';
+    subInfo.textContent = `Alle ${totalBeeps} Signale gespielt · Zeit abgelaufen`;
+    playEndBeep();
+    releaseWakeLock();
+    running = false;
+    paused = false;
+    startBtn.textContent = 'Start';
+    startBtn.disabled = false;
+    resetBtn.disabled = false;
+    setupCard.style.opacity = '';
+    bgWarning.classList.remove('show');
+  }
+
+  function stopTicking(){
+    if(tickHandle){ clearInterval(tickHandle); tickHandle = null; }
+  }
+
+  function startTicking(){
+    stopTicking();
+    tickHandle = setInterval(tick, 250);
+  }
+
+  function startTimer(){
+    const durMin = clampNumberInput(durationInput, 1);
+    const intMin = clampNumberInput(intervalInput, 0.5);
+    totalDurationMs = durMin * 60000;
+    intervalMs = intMin * 60000;
+    totalBeeps = Math.max(0, Math.floor((totalDurationMs - 1) / intervalMs));
+    accumulatedMs = 0;
+    beepsPlayed = 0;
+    runStart = Date.now();
+    running = true;
+    paused = false;
+
+    getAudioCtx(); // unlock audio on user gesture
+    acquireWakeLock();
+
+    statusLabel.textContent = 'Läuft';
+    statusLabel.className = 'status-label';
+    startBtn.textContent = 'Pause';
+    resetBtn.disabled = false;
+    setupCard.style.opacity = '.55';
+    bgWarning.classList.add('show');
+
+    startTicking();
+    tick();
+  }
+
+  function pauseTimer(){
+    accumulatedMs = getElapsed();
+    paused = true;
+    stopTicking();
+    releaseWakeLock();
+    statusLabel.textContent = 'Pausiert';
+    statusLabel.className = 'status-label paused';
+    startBtn.textContent = 'Weiter';
+  }
+
+  function resumeTimer(){
+    runStart = Date.now();
+    paused = false;
+    acquireWakeLock();
+    statusLabel.textContent = 'Läuft';
+    statusLabel.className = 'status-label';
+    startBtn.textContent = 'Pause';
+    startTicking();
+    tick();
+  }
+
+  function resetTimer(){
+    stopTicking();
+    releaseWakeLock();
+    running = false;
+    paused = false;
+    accumulatedMs = 0;
+    beepsPlayed = 0;
+    startBtn.textContent = 'Start';
+    resetBtn.disabled = true;
+    setupCard.style.opacity = '';
+    bgWarning.classList.remove('show');
+    updateIdleDisplay();
+  }
+
+  startBtn.addEventListener('click', () => {
+    if(!running){ startTimer(); }
+    else if(!paused){ pauseTimer(); }
+    else { resumeTimer(); }
+  });
+
+  resetBtn.addEventListener('click', resetTimer);
+
+  updateIdleDisplay();
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('timer-sw.js').catch(() => {});
+    });
+  }
+})();
+</script>
+</body>
+</html>
