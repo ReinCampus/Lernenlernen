@@ -77,6 +77,9 @@ header{position:sticky; top:0; z-index:20; background:rgba(246,250,249,.94); bac
 .facts{display:flex; flex-wrap:wrap; gap:.5rem 1.2rem; margin-top:1.6rem; padding:0; list-style:none; color:var(--ink-soft); font-weight:600; font-size:.95rem;}
 .facts li::before{content:"✓ "; color:var(--teal); font-weight:800;}
 .photo{aspect-ratio:4/5; display:flex; align-items:center; justify-content:center; text-align:center;}
+.hero-photo{margin:0;}
+.hero-photo img{display:block; width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; border-radius:var(--radius); box-shadow:var(--shadow);}
+.hero-photo figcaption{margin-top:.5rem; font-size:.85rem; color:var(--ink-soft);}
 
 /* Zwei-Spalten-Kopf je Sektion */
 .head{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:start;}
