@@ -46,6 +46,9 @@
   @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
   .about-grid .photo{aspect-ratio:1;}
   .about p{color:var(--ink-soft);}
+  .portrait{margin:0;}
+  .portrait img{display:block; width:100%; height:auto; border-radius:var(--radius); box-shadow:var(--shadow);}
+  .portrait figcaption{margin-top:.5rem; font-size:.85rem; color:var(--ink-soft);}
   .tools{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.2rem;}
   .tools span{background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:.35rem .9rem; font-weight:600; font-size:.9rem;}
 
@@ -305,7 +308,10 @@
   <section id="ueber-uns" class="about" style="padding-top:24px; --c:var(--teal);">
     <div class="wrap">
       <div class="about-grid">
-        <div class="ph photo"><div><b>Platzhalter · Porträt</b>Foto von Bernd Rein, natürlich und nahbar.</div></div>
+        <figure class="portrait">
+          <img src="assets/bernd-rein.jpg" width="640" height="640" alt="Bernd Rein lächelnd mit Fahrradhelm auf einem Radweg im Grünen">
+          <figcaption>Bernd Rein · Foto mit KI-Comicfilter bearbeitet</figcaption>
+        </figure>
         <div>
           <span class="eyebrow">Über uns</span>
           <h2>Wer hinter Rein Campus steht</h2>
