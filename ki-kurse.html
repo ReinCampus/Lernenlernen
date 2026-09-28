@@ -3,152 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KI-Kurse für jedes Alter | Rein Campus</title>
-<meta name="description" content="KI verstehen, kritisch nutzen, sicher anwenden – Kurse für Kinder und Jugendliche, Berufstätige, Senioren und Unternehmen. Rein Campus Kenzingen.">
+<title>KI-Kurse für jedes Alter | Rein Campus Kenzingen</title>
+<meta name="description" content="KI verstehen, kritisch nutzen, sicher anwenden – in kleinen Gruppen für Kinder und Jugendliche, Berufstätige und Senioren. Rein Campus Kenzingen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/ki-kurse.css">
 <style>
-  :root{
-    --bg:#f6faf9;
-    --surface:#ffffff;
-    --ink:#0c2f31;
-    --ink-soft:#3d5a5b;
-    --line:#d7e6e4;
-    --teal:#12787a;
-    --teal-deep:#0c3b3d;
-    --teal-pop:#1fc9bf;
-    --orange:#e6905f;
-    --orange-strong:#c26f3f;
-    --pink:#ee1d78;
-    /* Zielgruppen-Akzente */
-    --c-jugend:#ee1d78;
-    --c-beruf:#12787a;
-    --c-senior:#c26f3f;
-    --c-firma:#3b4b9c;
-    --radius:18px;
-    --shadow:0 10px 30px rgba(12,59,61,.08);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:'Mulish',system-ui,sans-serif; line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,.display{font-family:'Baloo 2',system-ui,sans-serif; line-height:1.15; text-wrap:balance; margin:0;}
-  a{color:inherit;}
-  .wrap{max-width:1120px; margin:0 auto; padding:0 20px;}
-  section{padding:72px 0;}
-  .eyebrow{
-    display:inline-block; font-weight:700; font-size:.8rem; letter-spacing:.08em;
-    text-transform:uppercase; color:var(--teal); margin-bottom:.6rem;
-  }
-  .lead{font-size:1.15rem; color:var(--ink-soft); max-width:62ch;}
-  .btn{
-    display:inline-flex; align-items:center; gap:.4rem; text-decoration:none;
-    font-weight:700; padding:.85rem 1.4rem; border-radius:999px; border:2px solid transparent;
-    cursor:pointer; font-size:1rem; font-family:inherit;
-  }
-  .btn-primary{background:var(--orange); color:#fff;}
-  .btn-primary:hover{background:var(--orange-strong);}
-  .btn-ghost{border-color:currentColor; color:var(--teal-deep); background:transparent;}
-  .btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--teal-pop); outline-offset:3px;}
-
-  /* Prototyp-Hinweis */
-  .proto{background:#fff4d6; color:#6b4b00; font-size:.85rem; text-align:center; padding:.45rem 1rem;}
-
-  /* Header */
-  header{position:sticky; top:0; z-index:20; background:rgba(246,250,249,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
-  .nav{display:flex; align-items:center; justify-content:space-between; gap:1rem; height:68px;}
-  .nav img{height:30px; width:auto; display:block;}
-  .nav-links{display:flex; gap:1.3rem; align-items:center; font-weight:600; font-size:.95rem;}
-  .nav-links a{text-decoration:none;}
-  .nav-links a:hover{color:var(--teal);}
-  .nav-links .btn{padding:.55rem 1.1rem;}
-  @media (max-width:900px){ .nav-links a:not(.btn){display:none;} }
-
-  /* Hero */
-  .hero{padding:64px 0 40px;}
-  .hero h1{font-size:clamp(2.2rem,5.5vw,3.8rem); color:var(--teal-deep); max-width:18ch;}
-  .hero h1 span{color:var(--orange-strong);}
-  .hero .lead{margin:1.2rem 0 2rem;}
-  .audiences{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:2.4rem;}
-  @media (max-width:960px){ .audiences{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:520px){ .audiences{grid-template-columns:1fr;} }
+  .aud-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:2.6rem;}
+  @media (max-width:860px){ .aud-grid{grid-template-columns:1fr;} }
   .aud{
-    --c:var(--teal);
-    display:flex; flex-direction:column; gap:.4rem; text-decoration:none;
+    display:flex; flex-direction:column; gap:.35rem; text-decoration:none;
     background:var(--surface); border:1px solid var(--line); border-top:6px solid var(--c);
-    border-radius:var(--radius); padding:1.3rem 1.2rem 1.2rem; box-shadow:var(--shadow);
-    transition:transform .15s ease;
+    border-radius:var(--radius); padding:1.3rem 1.2rem; box-shadow:var(--shadow); transition:transform .15s ease;
   }
   .aud:hover{transform:translateY(-3px);}
-  .aud .icon{font-size:1.8rem; line-height:1;}
   .aud h3{font-size:1.3rem; color:var(--c);}
   .aud p{margin:0; color:var(--ink-soft); font-size:.95rem;}
-  .aud .more{margin-top:auto; padding-top:.6rem; font-weight:700; color:var(--c);}
-  .aud.jugend{--c:var(--c-jugend);} .aud.beruf{--c:var(--c-beruf);}
-  .aud.senior{--c:var(--c-senior);} .aud.firma{--c:var(--c-firma);}
+  .aud .more{margin-top:auto; padding-top:.5rem; font-weight:700; color:var(--c);}
+  .b2b-hint{margin-top:1.2rem; color:var(--ink-soft);}
+  .b2b-hint a{font-weight:700; color:var(--c-firma);}
 
-  /* Kompass: ein Konzept, vier Zugänge */
-  .kompass{background:var(--teal-deep); color:#fff;}
-  .kompass .eyebrow{color:var(--teal-pop);}
-  .kompass h2{font-size:clamp(1.8rem,4vw,2.6rem);}
+  .kompass{background:var(--teal-deep); color:#fff; --c:var(--teal-pop);}
+  .kompass h2{color:#fff;}
   .kompass .lead{color:#cfe9e7;}
   .pillars{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:2.2rem;}
   @media (max-width:900px){ .pillars{grid-template-columns:1fr 1fr;} }
   @media (max-width:520px){ .pillars{grid-template-columns:1fr;} }
   .pillar{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:1.1rem;}
-  .pillar .n{font-family:'Baloo 2',system-ui,sans-serif; font-weight:800; color:var(--teal-pop); font-size:1.5rem;}
+  .pillar .n{font-family:var(--display); font-weight:800; color:var(--teal-pop); font-size:1.5rem;}
   .pillar h3{font-size:1.15rem; margin:.1rem 0 .3rem;}
   .pillar p{margin:0; font-size:.92rem; color:#cfe9e7;}
 
-  /* Zielgruppen-Sektionen */
   .target{border-top:1px solid var(--line);}
-  .target .head{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:start;}
-  @media (max-width:860px){ .target .head{grid-template-columns:1fr;} }
-  .target h2{font-size:clamp(1.8rem,4vw,2.5rem); color:var(--teal-deep);}
-  .target .eyebrow{color:var(--c);}
-  .target .lead{margin-top:1rem;}
-  .pain{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:1.3rem 1.4rem;}
-  .pain h3{font-size:1.05rem; margin-bottom:.5rem;}
-  .pain ul{margin:0; padding-left:1.1rem; color:var(--ink-soft);}
-  .pain li{margin:.25rem 0;}
-  .offers{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; margin-top:2rem;}
-  .offer{
-    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-    padding:1.5rem; display:flex; flex-direction:column; box-shadow:var(--shadow);
-  }
-  .offer .tag{align-self:flex-start; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; background:var(--c); color:#fff; border-radius:999px; padding:.2rem .7rem; margin-bottom:.8rem;}
-  .offer .tag.soft{background:transparent; color:var(--c); border:1.5px solid var(--c);}
-  .offer h3{font-size:1.35rem;}
-  .offer .meta{color:var(--ink-soft); font-size:.92rem; margin:.3rem 0 .9rem;}
-  .offer ul{margin:0 0 1.2rem; padding-left:1.1rem; font-size:.95rem;}
-  .offer li{margin:.2rem 0;}
-  .offer .price{margin-top:auto; display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:1rem; border-top:1px dashed var(--line); padding-top:1rem;}
-  .offer .price strong{font-family:'Baloo 2',system-ui,sans-serif; font-size:1.7rem; color:var(--c);}
-  .offer .price small{color:var(--ink-soft);}
-  .offer .price a{font-weight:700; color:var(--c); text-decoration:none; white-space:nowrap;}
-  #jugendliche{--c:var(--c-jugend);} #berufstaetige{--c:var(--c-beruf);}
-  #senioren{--c:var(--c-senior);} #firmen{--c:var(--c-firma);}
+  #jugendliche{--c:var(--c-jugend);}
+  #berufstaetige{--c:var(--c-beruf);}
+  #senioren{--c:var(--c-senior); background:#fff8f2;}
+  #senioren .lead,#senioren .offer ul,#senioren .box ul{font-size:1.12rem;}
+  .aud.jugend{--c:var(--c-jugend);} .aud.beruf{--c:var(--c-beruf);} .aud.senior{--c:var(--c-senior);}
 
-  /* Senioren: bewusst größer und ruhiger */
-  #senioren{background:#fff8f2;}
-  #senioren .lead,#senioren .offer ul,#senioren .pain ul{font-size:1.12rem;}
-  .note{margin-top:1.4rem; padding:1rem 1.2rem; border-left:4px solid var(--c); background:var(--surface); border-radius:8px; color:var(--ink-soft);}
-  .note strong{color:var(--ink);}
+  .about-grid{display:grid; grid-template-columns:.7fr 1.3fr; gap:40px; align-items:start;}
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid .photo{aspect-ratio:1;}
+  .about p{color:var(--ink-soft);}
+  .tools{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.2rem;}
+  .tools span{background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:.35rem .9rem; font-weight:600; font-size:.9rem;}
 
-  /* Firmen */
-  #firmen{background:#f2f4fb;}
-  .aiact{display:flex; gap:1rem; align-items:flex-start; margin-top:1.6rem; background:var(--c-firma); color:#fff; border-radius:var(--radius); padding:1.4rem 1.5rem;}
-  .aiact .big{font-family:'Baloo 2',system-ui,sans-serif; font-weight:800; font-size:2rem; line-height:1;}
-  .aiact p{margin:0; color:#e3e7fb;}
-  .aiact strong{color:#fff;}
-
-  /* Kursfinder */
   .finder{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow);}
-  .finder h2{font-size:clamp(1.6rem,3.5vw,2.2rem); color:var(--teal-deep);}
   .q{margin-top:1.4rem;}
   .q p{font-weight:700; margin:0 0 .6rem;}
   .chips{display:flex; flex-wrap:wrap; gap:.5rem;}
@@ -158,41 +59,11 @@
   .result.show{display:block;}
   .result h3{font-size:1.3rem; color:var(--teal-deep);}
   .result p{margin:.4rem 0 .9rem; color:var(--ink-soft);}
-
-  /* Warum wir */
-  .why{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:2rem;}
-  @media (max-width:860px){ .why{grid-template-columns:1fr;} }
-  .why div{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:1.3rem;}
-  .why h3{font-size:1.15rem; color:var(--teal-deep); margin-bottom:.3rem;}
-  .why p{margin:0; color:var(--ink-soft); font-size:.95rem;}
-  .tools{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem;}
-  .tools span{background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:.35rem .9rem; font-weight:600; font-size:.9rem;}
-
-  /* FAQ */
-  details{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem 1.2rem; margin-top:.7rem;}
-  summary{font-weight:700; cursor:pointer;}
-  details p{margin:.6rem 0 0; color:var(--ink-soft);}
-
-  /* Kontakt */
-  .contact{background:var(--teal-deep); color:#fff;}
-  .contact h2{font-size:clamp(1.8rem,4vw,2.5rem);}
-  .contact .lead{color:#cfe9e7;}
-  form{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:1.8rem; max-width:760px;}
-  @media (max-width:640px){ form{grid-template-columns:1fr;} }
-  label{display:flex; flex-direction:column; gap:.3rem; font-weight:600; font-size:.92rem; min-width:0;}
-  input,select,textarea{width:100%; min-width:0; font:inherit; padding:.7rem .8rem; border-radius:10px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#fff;}
-  select option{color:var(--ink);}
-  textarea{min-height:100px; resize:vertical;}
-  .full{grid-column:1/-1;}
-  .form-ok{display:none; margin-top:1rem; color:var(--teal-pop); font-weight:700;}
-
-  footer{padding:2rem 0; font-size:.9rem; color:var(--ink-soft);}
-  footer .wrap{display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:space-between;}
 </style>
 </head>
 <body>
 
-<div class="proto">Entwurf / Prototyp – Preise, Termine und Formate sind Vorschläge.</div>
+<div class="proto">Entwurf / Prototyp – gelb gestrichelte Felder sind Platzhalter für echte Inhalte. Preise sind Vorschläge.</div>
 
 <header>
   <div class="wrap nav">
@@ -201,9 +72,9 @@
       <a href="#jugendliche">Kinder &amp; Jugendliche</a>
       <a href="#berufstaetige">Berufstätige</a>
       <a href="#senioren">Senioren</a>
-      <a href="#firmen">Firmen</a>
-      <a href="#faq">FAQ</a>
-      <a class="btn btn-primary" href="#kontakt">Beraten lassen</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="firmen.html">Für Unternehmen</a>
+      <a class="btn btn-primary" href="#warteliste">Termine erfahren</a>
     </nav>
   </div>
 </header>
@@ -213,40 +84,41 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <span class="eyebrow">KI-Kurse bei Rein Campus · Kenzingen &amp; online</span>
-      <h1>KI verstehen. <span>In jedem Alter.</span></h1>
-      <p class="lead">Ob Schulbank, Büro oder Küchentisch: Wir zeigen Ihnen, wie Sie ChatGPT, Claude &amp; Co. souverän, kritisch und sicher nutzen – in Ihrem Tempo und passend zu Ihrem Alltag.</p>
-      <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
-        <a class="btn btn-primary" href="#kursfinder">Passenden Kurs finden →</a>
-        <a class="btn btn-ghost" href="#kompass">Unser Konzept</a>
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">KI-Kurse in Kenzingen · kleine Gruppen</span>
+          <h1>KI verstehen. <span>In jedem Alter.</span></h1>
+          <p class="lead">ChatGPT &amp; Co. sind längst im Alltag angekommen – in der Schule, im Job, am Küchentisch. Bei uns lernen Sie, KI klug, kritisch und sicher zu nutzen. Ohne Fachchinesisch, in Ihrem Tempo.</p>
+          <ul class="facts">
+            <li>Höchstens 8 Personen pro Gruppe</li>
+            <li>Keine Vorkenntnisse nötig</li>
+            <li>Mit Zertifikat bzw. Nachweis</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#kursfinder">Passenden Kurs finden →</a>
+          </div>
+        </div>
+        <div class="ph photo"><div><b>Platzhalter · Foto</b>Echtes Bild aus einem Kurs: Kursleitung mit Gruppe am Laptop, freundlich, hell. Kein Stockfoto, keine KI-Grafik.</div></div>
       </div>
 
-      <div class="audiences">
+      <div class="aud-grid">
         <a class="aud jugend" href="#jugendliche">
-          <span class="icon" aria-hidden="true">🎒</span>
           <h3>Kinder &amp; Jugendliche</h3>
-          <p>KI-Führerschein: klug lernen statt abschreiben.</p>
-          <span class="more">Kurse ansehen →</span>
+          <p>Der KI-Führerschein: KI als Lerncoach statt als Abschreibhilfe.</p>
+          <span class="more">Zu den Kursen →</span>
         </a>
         <a class="aud beruf" href="#berufstaetige">
-          <span class="icon" aria-hidden="true">💼</span>
           <h3>Erwachsene &amp; Berufstätige</h3>
-          <p>Zeit sparen im Job – mit Prompts, die funktionieren.</p>
-          <span class="more">Kurse ansehen →</span>
+          <p>An den eigenen Aufgaben lernen, wie KI Zeit spart.</p>
+          <span class="more">Zu den Kursen →</span>
         </a>
         <a class="aud senior" href="#senioren">
-          <span class="icon" aria-hidden="true">☕</span>
           <h3>Senioren</h3>
-          <p>In Ruhe ausprobieren – und Betrugsmaschen erkennen.</p>
-          <span class="more">Kurse ansehen →</span>
-        </a>
-        <a class="aud firma" href="#firmen">
-          <span class="icon" aria-hidden="true">🏢</span>
-          <h3>Unternehmen</h3>
-          <p>KI-Kompetenz fürs Team – praxisnah und AI-Act-konform.</p>
-          <span class="more">Angebote ansehen →</span>
+          <p>In Ruhe ausprobieren und gefälschte Anrufe und Bilder erkennen.</p>
+          <span class="more">Zu den Kursen →</span>
         </a>
       </div>
+      <p class="b2b-hint">Sie möchten Ihr Team schulen? <a href="firmen.html">Zu den Angeboten für Unternehmen →</a></p>
     </div>
   </section>
 
@@ -254,14 +126,14 @@
   <section class="kompass" id="kompass">
     <div class="wrap">
       <span class="eyebrow">Der Rein-Campus-KI-Kompass</span>
-      <h2>Ein Konzept. Vier Zugänge.</h2>
-      <p class="lead">Alle Kurse folgen denselben fünf Bausteinen, die sich im KI-Führerschein bewährt haben. Was sich ändert: Beispiele, Tempo und Ziel – angepasst an Ihre Lebenswelt.</p>
+      <h2>Ein Konzept. Für jedes Alter passend gemacht.</h2>
+      <p class="lead">Jeder Kurs folgt denselben fünf Bausteinen aus unserem KI-Führerschein. Beispiele, Tempo und Ziel passen wir an Ihre Lebenswelt an.</p>
       <div class="pillars">
-        <div class="pillar"><div class="n">1</div><h3>Verstehen</h3><p>Was KI ist – und was nicht. Werkzeug, kein Mensch.</p></div>
-        <div class="pillar"><div class="n">2</div><h3>Prüfen</h3><p>Fehler und Halluzinationen erkennen, Fakten checken.</p></div>
+        <div class="pillar"><div class="n">1</div><h3>Verstehen</h3><p>Was KI ist und was nicht. Ein Werkzeug, kein Mensch.</p></div>
+        <div class="pillar"><div class="n">2</div><h3>Prüfen</h3><p>Fehler und erfundene Antworten erkennen, Fakten checken.</p></div>
         <div class="pillar"><div class="n">3</div><h3>Schützen</h3><p>Datenschutz, Urheberrecht, Deepfakes, Betrug.</p></div>
-        <div class="pillar"><div class="n">4</div><h3>Anwenden</h3><p>Lernen, Arbeiten, Alltag: echte Aufgaben lösen.</p></div>
-        <div class="pillar"><div class="n">5</div><h3>Gestalten</h3><p>Gute Prompts, eigenes Projekt, Blick nach vorn.</p></div>
+        <div class="pillar"><div class="n">4</div><h3>Anwenden</h3><p>Echte Aufgaben aus Schule, Beruf und Alltag lösen.</p></div>
+        <div class="pillar"><div class="n">5</div><h3>Gestalten</h3><p>Gute Prompts schreiben, eigenes Projekt umsetzen.</p></div>
       </div>
     </div>
   </section>
@@ -272,13 +144,13 @@
       <div class="head">
         <div>
           <span class="eyebrow">Kinder &amp; Jugendliche</span>
-          <h2>Der KI-Führerschein – fürs Lernen und fürs Leben</h2>
-          <p class="lead">Ihr Kind nutzt KI ohnehin. Wir sorgen dafür, dass es das klug tut: Antworten hinterfragen, sicher bleiben und KI als Lerncoach einsetzen – nicht als Abschreibhilfe.</p>
+          <h2>Ihr Kind nutzt KI sowieso. Wir sorgen dafür, dass es klug damit umgeht.</h2>
+          <p class="lead">Antworten hinterfragen, persönliche Daten schützen und KI zum Lernen nutzen, nicht zum Abschreiben: Das lernt Ihr Kind bei uns an echten Schulaufgaben.</p>
         </div>
-        <div class="pain">
-          <h3>Das hören wir von Eltern</h3>
+        <div class="box">
+          <h3>Das hören wir oft von Eltern</h3>
           <ul>
-            <li>„Macht die KI jetzt die Hausaufgaben?“</li>
+            <li>„Macht jetzt die KI die Hausaufgaben?“</li>
             <li>„Ich weiß selbst nicht genau, was da passiert.“</li>
             <li>„Welche Daten gibt mein Kind da eigentlich ein?“</li>
           </ul>
@@ -286,40 +158,33 @@
       </div>
       <div class="offers">
         <article class="offer">
+          <span class="tag">Unser Bestseller</span>
+          <h3>KI-Führerschein</h3>
+          <p class="meta">Klasse 7 – 10 · 5 × 90 Minuten · Geräte werden gestellt</p>
+          <p class="outcome">Danach kann Ihr Kind:</p>
+          <ul>
+            <li>KI-Antworten prüfen und Fehler erkennen</li>
+            <li>sicher entscheiden, was es eingibt und was nicht</li>
+            <li>mit KI Lernpläne und Karteikarten erstellen und sich auf Prüfungen vorbereiten</li>
+          </ul>
+          <p class="status">Nächster Kurs: Termin in Planung</p>
+          <div class="price"><div><strong>99 €</strong> <small>inkl. Zertifikat</small></div><a class="btn" href="#warteliste" data-interest="KI-Führerschein (Kl. 7–10)">Auf die Warteliste</a></div>
+        </article>
+        <article class="offer">
           <span class="tag soft">Neu</span>
           <h3>KI-Entdecker</h3>
-          <p class="meta">Klasse 4 – 6 · 3 × 90 Min. · Ferienkurs</p>
+          <p class="meta">Klasse 4 – 6 · 3 × 90 Minuten · in den Ferien</p>
+          <p class="outcome">Danach kann Ihr Kind:</p>
           <ul>
-            <li>Spielerisch: Wie „denkt“ ein Computer?</li>
-            <li>Bilder und Geschichten mit KI gestalten</li>
-            <li>Stopp-Regeln: Was ich nie eingebe</li>
+            <li>erklären, wie ein Computer „antwortet“</li>
+            <li>mit KI eigene Bilder und Geschichten gestalten</li>
+            <li>die Stopp-Regeln nennen: Was gebe ich nie ein?</li>
           </ul>
-          <div class="price"><div><strong>69 €</strong> <small>/ Kind</small></div><a href="#kontakt" data-interest="KI-Entdecker (Kl. 4–6)">Vormerken →</a></div>
-        </article>
-        <article class="offer">
-          <span class="tag">Bestseller</span>
-          <h3>KI-Führerschein</h3>
-          <p class="meta">Klasse 7 – 10 · 5 × 90 Min. · inkl. Zertifikat</p>
-          <ul>
-            <li>KI verstehen, Halluzinationen erkennen</li>
-            <li>Sicherheit, Datenschutz, Deepfakes</li>
-            <li>KI als Lerncoach: Lernpläne, Karteikarten, Prüfungsvorbereitung</li>
-          </ul>
-          <div class="price"><div><strong>99 €</strong> <small>/ Kind</small></div><a href="#kontakt" data-interest="KI-Führerschein (Kl. 7–10)">Platz sichern →</a></div>
-        </article>
-        <article class="offer">
-          <span class="tag soft">Neu</span>
-          <h3>KI für Abi &amp; Studium</h3>
-          <p class="meta">Oberstufe · 3 × 120 Min.</p>
-          <ul>
-            <li>Recherche mit Perplexity &amp; NotebookLM</li>
-            <li>Facharbeit &amp; GFS: erlaubt vs. unerlaubt</li>
-            <li>Lernstrategien für Klausurphasen</li>
-          </ul>
-          <div class="price"><div><strong>89 €</strong> <small>/ Person</small></div><a href="#kontakt" data-interest="KI für Abi & Studium">Vormerken →</a></div>
+          <p class="status">Nächster Kurs: Termin in Planung</p>
+          <div class="price"><div><strong>69 €</strong> <small>/ Kind</small></div><a class="btn" href="#warteliste" data-interest="KI-Entdecker (Kl. 4–6)">Auf die Warteliste</a></div>
         </article>
       </div>
-      <p class="note"><strong>Für Schulen:</strong> Den KI-Führerschein bringen wir auch als Projekttag oder AG direkt in Ihre Klasse. <a href="#kontakt" data-interest="KI-Führerschein für Schulen">Anfrage stellen →</a></p>
+      <p class="note"><strong>Für Schulen:</strong> Den KI-Führerschein bieten wir auch als Projekttag oder AG an. <a href="#warteliste" data-interest="KI-Führerschein für Schulen">Anfrage stellen →</a></p>
     </div>
   </section>
 
@@ -329,15 +194,15 @@
       <div class="head">
         <div>
           <span class="eyebrow">Erwachsene &amp; Berufstätige</span>
-          <h2>KI im Arbeitsalltag: weniger Routine, mehr Wirkung</h2>
-          <p class="lead">E-Mails, Protokolle, Recherche, Präsentationen: Sie lernen an Ihren eigenen Aufgaben, wie KI Ihnen Stunden pro Woche spart – ohne dass Qualität und Datenschutz leiden.</p>
+          <h2>Weniger Routine, mehr Zeit für das, was zählt</h2>
+          <p class="lead">E-Mails, Protokolle, Recherche, Präsentationen: Sie bringen Ihre eigenen Aufgaben mit und lernen, wie KI Ihnen die Arbeit erleichtert. Dabei bleiben Qualität und Datenschutz gewahrt.</p>
         </div>
-        <div class="pain">
+        <div class="box">
           <h3>Kennen Sie das?</h3>
           <ul>
-            <li>Alle reden von KI – aber was bringt sie mir konkret?</li>
-            <li>Die Ergebnisse von ChatGPT sind mir zu allgemein.</li>
-            <li>Ich bin unsicher, was ich beruflich eingeben darf.</li>
+            <li>Alle reden von KI, aber was bringt sie mir konkret?</li>
+            <li>Die Antworten von ChatGPT sind mir zu allgemein.</li>
+            <li>Ich weiß nicht, was ich beruflich eingeben darf.</li>
           </ul>
         </div>
       </div>
@@ -345,37 +210,31 @@
         <article class="offer">
           <span class="tag soft">Einstieg</span>
           <h3>KI-Starter am Abend</h3>
-          <p class="meta">4 × 2 Std. · abends · Präsenz oder online</p>
+          <p class="meta">4 Abende à 2 Stunden · eigener Laptop</p>
+          <p class="outcome">Danach können Sie:</p>
           <ul>
-            <li>Grundlagen und die wichtigsten Tools im Vergleich</li>
-            <li>Das 5-Bausteine-Prompting</li>
-            <li>Texte, E-Mails, Zusammenfassungen</li>
+            <li>die wichtigsten KI-Tools sicher bedienen und vergleichen</li>
+            <li>Prompts schreiben, die brauchbare Ergebnisse liefern</li>
+            <li>E-Mails, Texte und Zusammenfassungen in Minuten erstellen</li>
           </ul>
-          <div class="price"><div><strong>149 €</strong> <small>/ Person</small></div><a href="#kontakt" data-interest="KI-Starter am Abend">Vormerken →</a></div>
+          <p class="status">Nächster Kurs: Termin in Planung</p>
+          <div class="price"><div><strong>149 €</strong> <small>/ Person</small></div><a class="btn" href="#warteliste" data-interest="KI-Starter am Abend">Auf die Warteliste</a></div>
         </article>
         <article class="offer">
           <span class="tag">Kompakt</span>
           <h3>KI-Praxistag</h3>
-          <p class="meta">1 Tag · Samstag · max. 10 Personen</p>
+          <p class="meta">1 Samstag · 9 – 16 Uhr · eigener Laptop</p>
+          <p class="outcome">Danach haben Sie:</p>
           <ul>
-            <li>Eigene Arbeitsaufgaben mitbringen und lösen</li>
-            <li>Eigene Prompt-Bibliothek aufbauen</li>
-            <li>Präsentationen &amp; Grafiken mit Canva Magic Studio</li>
+            <li>zwei bis drei eigene Arbeitsaufgaben mit KI gelöst</li>
+            <li>eine persönliche Prompt-Sammlung für den Alltag</li>
+            <li>eine klare Regel, was beruflich tabu ist</li>
           </ul>
-          <div class="price"><div><strong>199 €</strong> <small>/ Person</small></div><a href="#kontakt" data-interest="KI-Praxistag">Vormerken →</a></div>
-        </article>
-        <article class="offer">
-          <span class="tag soft">Bildungszeit</span>
-          <h3>KI-Kompetenz-Woche</h3>
-          <p class="meta">5 Tage · als Bildungszeit/Bildungsurlaub geplant</p>
-          <ul>
-            <li>Alle fünf Kompass-Bausteine in der Tiefe</li>
-            <li>Eigenes KI-Projekt für den Arbeitsplatz</li>
-            <li>Teilnahmezertifikat</li>
-          </ul>
-          <div class="price"><div><strong>auf Anfrage</strong></div><a href="#kontakt" data-interest="KI-Kompetenz-Woche (Bildungszeit)">Interesse melden →</a></div>
+          <p class="status">Nächster Kurs: Termin in Planung</p>
+          <div class="price"><div><strong>199 €</strong> <small>/ Person</small></div><a class="btn" href="#warteliste" data-interest="KI-Praxistag">Auf die Warteliste</a></div>
         </article>
       </div>
+      <p class="note"><strong>Tipp:</strong> Viele Arbeitgeber übernehmen die Kosten als Weiterbildung. Auf Wunsch stellen wir die Rechnung direkt an Ihr Unternehmen.</p>
     </div>
   </section>
 
@@ -385,15 +244,15 @@
       <div class="head">
         <div>
           <span class="eyebrow">Senioren</span>
-          <h2>KI ganz in Ruhe – verstehen, ausprobieren, sicher bleiben</h2>
-          <p class="lead">Kein Fachchinesisch, kein Zeitdruck. In kleinen Gruppen probieren Sie KI auf Ihrem eigenen Smartphone oder Tablet aus – und lernen, gefälschte Anrufe, Bilder und Nachrichten zu erkennen.</p>
+          <h2>KI ganz in Ruhe: verstehen, ausprobieren, sicher bleiben</h2>
+          <p class="lead">Ohne Zeitdruck und ohne Fachchinesisch. In kleiner Runde probieren Sie KI auf Ihrem eigenen Smartphone oder Tablet aus und lernen, gefälschte Anrufe, Bilder und Nachrichten zu erkennen.</p>
         </div>
-        <div class="pain">
-          <h3>Was Sie bei uns erwartet</h3>
+        <div class="box">
+          <h3>So läuft es bei uns</h3>
           <ul>
             <li>Höchstens 6 Personen pro Gruppe</li>
             <li>Vormittags, mit Kaffeepause</li>
-            <li>Schritt-für-Schritt-Handout zum Mitnehmen</li>
+            <li>Schritt-für-Schritt-Anleitung zum Mitnehmen</li>
           </ul>
         </div>
       </div>
@@ -401,255 +260,181 @@
         <article class="offer">
           <span class="tag">Grundkurs</span>
           <h3>KI ganz entspannt</h3>
-          <p class="meta">4 × 90 Min. · vormittags · eigenes Gerät</p>
+          <p class="meta">4 Vormittage à 90 Minuten · eigenes Gerät</p>
+          <p class="outcome">Danach können Sie:</p>
           <ul>
-            <li>Fragen stellen wie im Gespräch</li>
-            <li>Rezepte, Reiseplanung, Briefe an Ämter</li>
-            <li>Fotos beschreiben und Texte vorlesen lassen</li>
+            <li>der KI Fragen stellen wie in einem Gespräch</li>
+            <li>sich bei Briefen an Ämter, Rezepten und Reiseplänen helfen lassen</li>
+            <li>sich Texte vorlesen und Fotos beschreiben lassen</li>
           </ul>
-          <div class="price"><div><strong>79 €</strong> <small>/ Person</small></div><a href="#kontakt" data-interest="KI ganz entspannt (Senioren)">Vormerken →</a></div>
+          <p class="status">Nächster Kurs: Termin in Planung</p>
+          <div class="price"><div><strong>79 €</strong> <small>/ Person</small></div><a class="btn" href="#warteliste" data-interest="KI ganz entspannt (Senioren)">Auf die Warteliste</a></div>
         </article>
         <article class="offer">
           <span class="tag">Sicherheit</span>
           <h3>Echt oder Fälschung?</h3>
-          <p class="meta">1 × 2 Std. · Vortrag mit Übungen</p>
+          <p class="meta">1 Vormittag · 2 Stunden · Vortrag mit Übungen</p>
+          <p class="outcome">Danach wissen Sie:</p>
           <ul>
-            <li>Enkeltrick 2.0: gefälschte Stimmen am Telefon</li>
-            <li>Falsche Bilder, Videos und Gewinnspiele erkennen</li>
-            <li>Was tun im Ernstfall?</li>
+            <li>wie der Enkeltrick mit gefälschten Stimmen funktioniert</li>
+            <li>woran Sie falsche Bilder, Videos und Gewinnspiele erkennen</li>
+            <li>was Sie im Ernstfall tun</li>
           </ul>
-          <div class="price"><div><strong>19 €</strong> <small>/ Person</small></div><a href="#kontakt" data-interest="Echt oder Fälschung? (Senioren)">Vormerken →</a></div>
+          <p class="status">Nächster Termin: in Planung</p>
+          <div class="price"><div><strong>19 €</strong> <small>/ Person</small></div><a class="btn" href="#warteliste" data-interest="Echt oder Fälschung? (Senioren)">Auf die Warteliste</a></div>
         </article>
       </div>
-      <p class="note"><strong>Tipp für Familien:</strong> Verschenken Sie einen Kursplatz – als Gutschein für Eltern oder Großeltern. Und für Vereine, Kirchengemeinden und Seniorentreffs kommen wir gerne auch zu Ihnen.</p>
+      <p class="note"><strong>Als Geschenk:</strong> Jeder Kurs ist auch als Gutschein erhältlich, etwa für Eltern oder Großeltern. Vereine und Seniorentreffs besuchen wir gerne auch vor Ort.</p>
     </div>
   </section>
 
-  <!-- FIRMEN -->
-  <section class="target" id="firmen">
+  <!-- STIMMEN -->
+  <section id="stimmen" style="--c:var(--teal);">
     <div class="wrap">
-      <div class="head">
+      <span class="eyebrow">Stimmen</span>
+      <h2>Was Teilnehmende sagen</h2>
+      <div class="quotes">
+        <div class="ph"><b>Platzhalter · Zitat Elternteil</b>Echtes Zitat nach dem KI-Führerschein, mit Vorname, Ort und Klassenstufe des Kindes, z. B. „Sabine, Kenzingen – Sohn in Klasse 8“. Nur mit Einverständnis.</div>
+        <div class="ph"><b>Platzhalter · Zitat Jugendliche/r</b>Kurzer O-Ton eines Teilnehmers: Was war überraschend, was nutzt er/sie jetzt anders?</div>
+        <div class="ph"><b>Platzhalter · Zahl oder Zitat</b>Z. B. Anzahl der Kinder, die den KI-Führerschein schon gemacht haben, oder ein Zitat einer Lehrkraft / Schule.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section id="ueber-uns" class="about" style="padding-top:24px; --c:var(--teal);">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="ph photo"><div><b>Platzhalter · Porträt</b>Foto der Kursleitung, natürlich und nahbar.</div></div>
         <div>
-          <span class="eyebrow">Unternehmen &amp; Organisationen</span>
-          <h2>KI-Kompetenz fürs ganze Team</h2>
-          <p class="lead">Wir schulen Ihre Mitarbeitenden praxisnah an Ihren eigenen Prozessen – vor Ort bei Ihnen, bei uns in Kenzingen oder online. Vom kurzen Impuls bis zur Begleitung über mehrere Monate.</p>
+          <span class="eyebrow">Über uns</span>
+          <h2>Wir kommen vom Lernen, nicht von der Technik</h2>
+          <p class="lead">Rein Campus begleitet Menschen beim Lernen. Deshalb erklären wir bei uns keine Menüs und Knöpfe, sondern sorgen dafür, dass Sie KI verstehen und selbstständig nutzen können, auch nach dem Kurs.</p>
+          <div class="ph" style="margin-top:1.2rem;"><b>Platzhalter · Kurzvorstellung</b>2–3 Sätze in der Ich-Form: Name, Hintergrund (z. B. Jahre in Bildung und Lerncoaching), warum Ihnen das Thema KI am Herzen liegt.</div>
+          <div class="tools" aria-label="Eingesetzte Programme">
+            <span>ChatGPT</span><span>Claude</span><span>Perplexity</span><span>Canva Magic Studio</span><span>NotebookLM</span>
+          </div>
         </div>
-        <div class="pain">
-          <h3>Typische Ausgangslagen</h3>
-          <ul>
-            <li>Mitarbeitende nutzen KI schon – ungeregelt</li>
-            <li>Es fehlen gemeinsame Regeln und Beispiele</li>
-            <li>Die Pflicht zur KI-Schulung soll erfüllt werden</li>
-          </ul>
-        </div>
-      </div>
-      <div class="aiact">
-        <div class="big" aria-hidden="true">§</div>
-        <p><strong>EU AI Act, Artikel 4:</strong> Seit Februar 2025 müssen Unternehmen, die KI einsetzen, für ausreichende KI-Kompetenz ihres Personals sorgen. Unsere Schulungen dokumentieren wir mit Teilnahmenachweisen – so haben Sie die Maßnahme belegt.</p>
-      </div>
-      <div class="offers">
-        <article class="offer">
-          <span class="tag soft">Impuls</span>
-          <h3>KI-Impuls</h3>
-          <p class="meta">3 Std. · bis 25 Personen</p>
-          <ul>
-            <li>Was KI heute kann – live demonstriert</li>
-            <li>Chancen und Risiken für Ihre Branche</li>
-            <li>Ideal als Auftakt oder für die Führungsrunde</li>
-          </ul>
-          <div class="price"><div><strong>ab 690 €</strong></div><a href="#kontakt" data-interest="Firmen: KI-Impuls">Anfragen →</a></div>
-        </article>
-        <article class="offer">
-          <span class="tag">Beliebt</span>
-          <h3>Team-Workshop</h3>
-          <p class="meta">1 Tag · bis 12 Personen · inkl. Nachweis</p>
-          <ul>
-            <li>Alle fünf Kompass-Bausteine, auf Ihren Alltag zugeschnitten</li>
-            <li>Gemeinsame Prompt-Bibliothek für Ihr Team</li>
-            <li>Entwurf einer internen KI-Richtlinie</li>
-          </ul>
-          <div class="price"><div><strong>ab 1.490 €</strong></div><a href="#kontakt" data-interest="Firmen: Team-Workshop">Anfragen →</a></div>
-        </article>
-        <article class="offer">
-          <span class="tag soft">Begleitung</span>
-          <h3>KI-Lernbegleitung</h3>
-          <p class="meta">3 Monate · Workshops + Sprechstunden</p>
-          <ul>
-            <li>Ausbildung interner KI-Ansprechpersonen</li>
-            <li>Monatliche Praxis-Sprechstunde</li>
-            <li>Auch für Azubi-Jahrgänge</li>
-          </ul>
-          <div class="price"><div><strong>individuell</strong></div><a href="#kontakt" data-interest="Firmen: KI-Lernbegleitung">Gespräch vereinbaren →</a></div>
-        </article>
       </div>
     </div>
   </section>
 
   <!-- KURSFINDER -->
-  <section id="kursfinder">
+  <section id="kursfinder" style="padding-top:24px;">
     <div class="wrap">
       <div class="finder">
-        <span class="eyebrow">Kursfinder</span>
-        <h2>Welcher Kurs passt zu Ihnen?</h2>
+        <span class="eyebrow" style="--c:var(--teal);">Kursfinder</span>
+        <h2>Welcher Kurs passt?</h2>
         <div class="q">
-          <p>1. Für wen suchen Sie?</p>
-          <div class="chips" data-q="who">
-            <button class="chip" type="button" data-v="kind" aria-pressed="false">Mein Kind (Kl. 4–6)</button>
-            <button class="chip" type="button" data-v="teen" aria-pressed="false">Mein Kind (Kl. 7–10)</button>
-            <button class="chip" type="button" data-v="abi" aria-pressed="false">Oberstufe</button>
-            <button class="chip" type="button" data-v="me" aria-pressed="false">Für mich (Beruf)</button>
-            <button class="chip" type="button" data-v="senior" aria-pressed="false">Für mich / meine Eltern (60+)</button>
+          <p>Für wen suchen Sie einen Kurs?</p>
+          <div class="chips">
+            <button class="chip" type="button" data-v="kind" aria-pressed="false">Mein Kind, Klasse 4–6</button>
+            <button class="chip" type="button" data-v="teen" aria-pressed="false">Mein Kind, Klasse 7–10</button>
+            <button class="chip" type="button" data-v="me" aria-pressed="false">Für mich, beruflich</button>
+            <button class="chip" type="button" data-v="senior" aria-pressed="false">Für mich oder meine Eltern (60+)</button>
             <button class="chip" type="button" data-v="team" aria-pressed="false">Für unser Team</button>
-          </div>
-        </div>
-        <div class="q">
-          <p>2. Wie viel Zeit passt?</p>
-          <div class="chips" data-q="time">
-            <button class="chip" type="button" data-v="short" aria-pressed="false">Kurz reinschnuppern</button>
-            <button class="chip" type="button" data-v="mid" aria-pressed="false">Ein paar Termine</button>
-            <button class="chip" type="button" data-v="long" aria-pressed="false">Richtig tief einsteigen</button>
           </div>
         </div>
         <div class="result" id="finder-result" aria-live="polite">
           <h3 id="finder-title"></h3>
           <p id="finder-text"></p>
-          <a class="btn btn-primary" id="finder-link" href="#kontakt">Details ansehen →</a>
+          <a class="btn btn-primary" id="finder-link" href="#warteliste">Mehr erfahren →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WARUM WIR -->
-  <section id="warum" style="padding-top:24px;">
-    <div class="wrap">
-      <span class="eyebrow">Warum Rein Campus?</span>
-      <h2 style="font-size:clamp(1.8rem,4vw,2.5rem);color:var(--teal-deep);">Wir kommen vom Lernen – nicht von der Technik</h2>
-      <p class="lead" style="margin-top:1rem;">Seit Jahren begleiten wir Menschen beim Lernen. Deshalb geht es bei uns nicht um Knöpfe und Menüs, sondern darum, dass Sie KI verstehen und selbstständig einsetzen können.</p>
-      <div class="why">
-        <div><h3>Kritisch statt blind</h3><p>Wir üben, KI-Antworten zu prüfen – in jedem Kurs, in jedem Alter.</p></div>
-        <div><h3>Kleine Gruppen</h3><p>Persönliche Betreuung statt Massenveranstaltung. Jede Frage hat Platz.</p></div>
-        <div><h3>Praxis in jeder Einheit</h3><p>Sie arbeiten an echten Aufgaben aus Ihrem Alltag, nicht an Folien.</p></div>
-        <div><h3>Sicherheit im Fokus</h3><p>Datenschutz, Urheberrecht und Betrugsschutz gehören immer dazu.</p></div>
-        <div><h3>Mit Nachweis</h3><p>Zertifikat oder Teilnahmenachweis – für Schule, Bewerbung oder Arbeitgeber.</p></div>
-        <div><h3>Vor Ort in Kenzingen</h3><p>Hauptstraße 12 – oder online und bei Ihnen im Unternehmen.</p></div>
-      </div>
-      <div class="tools" aria-label="Eingesetzte Programme">
-        <span>ChatGPT</span><span>Claude</span><span>Perplexity</span><span>Canva Magic Studio</span><span>NotebookLM</span>
-      </div>
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section id="faq" style="padding-top:24px;">
-    <div class="wrap" style="max-width:820px;">
+  <section id="faq" style="padding-top:24px; --c:var(--teal);">
+    <div class="wrap narrow">
       <span class="eyebrow">Häufige Fragen</span>
-      <h2 style="font-size:clamp(1.8rem,4vw,2.5rem);color:var(--teal-deep);">Gut zu wissen</h2>
-      <details><summary>Brauche ich Vorkenntnisse?</summary><p>Nein. Alle Kurse starten bei den Grundlagen. Die Firmen-Workshops passen wir vorab an den Wissensstand Ihres Teams an.</p></details>
-      <details><summary>Welche Geräte brauche ich?</summary><p>Bei Kinder- und Jugendkursen stellen wir alle Geräte. Erwachsene und Senioren arbeiten am liebsten mit dem eigenen Laptop, Tablet oder Smartphone – so klappt es zu Hause direkt weiter.</p></details>
-      <details><summary>Muss ich mich bei KI-Diensten anmelden?</summary><p>Für den Kurs nicht zwingend. Wir zeigen, welche Dienste ohne Konto funktionieren und worauf Sie bei einer Registrierung achten sollten.</p></details>
-      <details><summary>Kann mein Arbeitgeber den Kurs bezahlen?</summary><p>Oft ja – als Weiterbildung oder im Rahmen der Schulungspflicht nach dem EU AI Act. Wir stellen gerne eine Rechnung an Ihr Unternehmen aus.</p></details>
-      <details><summary>Gibt es Gutscheine?</summary><p>Ja, alle Kurse sind als Gutschein erhältlich – beliebt z. B. für Großeltern oder zum Schulstart.</p></details>
+      <h2>Gut zu wissen</h2>
+      <details><summary>Wann finden die nächsten Kurse statt?</summary><p>Die Termine planen wir gerade. Wenn Sie sich auf die Warteliste setzen, erfahren Sie die Termine als Erste und können sich vor der öffentlichen Ankündigung einen Platz sichern. Die Warteliste ist kostenlos und unverbindlich.</p></details>
+      <details><summary>Brauche ich Vorkenntnisse?</summary><p>Nein. Alle Kurse beginnen bei den Grundlagen.</p></details>
+      <details><summary>Welche Geräte brauche ich?</summary><p>In Kinder- und Jugendkursen stellen wir alle Geräte. Erwachsene und Senioren arbeiten mit ihrem eigenen Laptop, Tablet oder Smartphone. So klappt es zu Hause direkt weiter.</p></details>
+      <details><summary>Muss ich mich bei KI-Diensten registrieren?</summary><p>Nicht zwingend. Wir zeigen Ihnen, welche Dienste ohne Konto funktionieren und worauf Sie bei einer Registrierung achten sollten.</p></details>
+      <details><summary>Was passiert, wenn ich einen Termin verpasse?</summary><p>Sprechen Sie uns an. Wir finden gemeinsam eine Lösung, damit Ihnen kein Inhalt fehlt.</p></details>
     </div>
   </section>
 
-  <!-- KONTAKT -->
-  <section class="contact" id="kontakt">
+  <!-- WARTELISTE -->
+  <section class="contact" id="warteliste">
     <div class="wrap">
-      <span class="eyebrow" style="color:var(--teal-pop);">Anmelden &amp; beraten lassen</span>
-      <h2>Sichern Sie sich Ihren Platz</h2>
-      <p class="lead">Neue Termine veröffentlichen wir laufend. Melden Sie Ihr Interesse an – wir informieren Sie, sobald Ihr Wunschkurs startet, oder rufen Sie zurück.</p>
+      <span class="eyebrow">Warteliste · kostenlos &amp; unverbindlich</span>
+      <h2>Termine als Erste erfahren</h2>
+      <p class="lead">Tragen Sie sich ein: Sobald ein Termin feststeht, melden wir uns bei Ihnen. Sie können sich dann vor der öffentlichen Ankündigung einen Platz sichern.</p>
       <form id="interest-form">
         <label>Vorname<input name="vorname" required autocomplete="given-name"></label>
-        <label>Nachname<input name="nachname" required autocomplete="family-name"></label>
         <label>E-Mail<input type="email" name="email" required autocomplete="email"></label>
-        <label>Telefon (optional)<input type="tel" name="telefon" autocomplete="tel"></label>
-        <label class="full">Kurs / Interesse
+        <label class="full">Welcher Kurs interessiert Sie?
           <select name="kurs" id="kurs-select" required>
             <option value="">Bitte wählen</option>
             <optgroup label="Kinder &amp; Jugendliche">
-              <option>KI-Entdecker (Kl. 4–6)</option>
               <option>KI-Führerschein (Kl. 7–10)</option>
-              <option>KI für Abi &amp; Studium</option>
+              <option>KI-Entdecker (Kl. 4–6)</option>
               <option>KI-Führerschein für Schulen</option>
             </optgroup>
             <optgroup label="Erwachsene &amp; Berufstätige">
               <option>KI-Starter am Abend</option>
               <option>KI-Praxistag</option>
-              <option>KI-Kompetenz-Woche (Bildungszeit)</option>
             </optgroup>
             <optgroup label="Senioren">
               <option>KI ganz entspannt (Senioren)</option>
               <option>Echt oder Fälschung? (Senioren)</option>
             </optgroup>
-            <optgroup label="Unternehmen">
-              <option>Firmen: KI-Impuls</option>
-              <option>Firmen: Team-Workshop</option>
-              <option>Firmen: KI-Lernbegleitung</option>
-            </optgroup>
-            <option>Ich bin noch unsicher – bitte beraten Sie mich</option>
+            <option>Gutschein</option>
+            <option>Ich bin noch unsicher, bitte beraten Sie mich</option>
           </select>
         </label>
-        <label class="full">Nachricht (optional)<textarea name="nachricht"></textarea></label>
-        <div class="full"><button class="btn btn-primary" type="submit">Interesse senden →</button>
-          <p class="form-ok" id="form-ok">Danke! (Prototyp – es wurden keine Daten gesendet.)</p></div>
+        <label class="full check"><input type="checkbox" required> Ich bin einverstanden, dass Rein Campus mich zu diesem Kurs per E-Mail kontaktiert. Hinweise in der Datenschutzerklärung.</label>
+        <div class="full"><button class="btn btn-primary" type="submit">Auf die Warteliste →</button>
+          <p class="form-ok" id="form-ok">Danke! (Prototyp: Es wurden keine Daten gesendet.)</p></div>
       </form>
+      <p class="direct">Lieber persönlich? <a href="tel:+4976449294280">07644 9294280</a> · <a href="mailto:info@rein-campus.de">info@rein-campus.de</a></p>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>Rein Campus · Hauptstraße 12 · 79341 Kenzingen · 07644 9294280 · info@rein-campus.de</span>
-    <span>Impressum · Datenschutz · AGB</span>
+    <span>Rein Campus · Hauptstraße 12 · 79341 Kenzingen</span>
+    <span><a href="firmen.html">Für Unternehmen</a> · Impressum · Datenschutz · AGB</span>
   </div>
 </footer>
 
 <script>
-  // Angebots-Links füllen das Kursfeld im Formular vor
+  // Angebots-Links füllen das Kursfeld der Warteliste vor
   const select = document.getElementById('kurs-select');
   document.querySelectorAll('[data-interest]').forEach(a => {
     a.addEventListener('click', () => {
-      const v = a.dataset.interest;
-      const opt = [...select.options].find(o => o.text === v);
+      const opt = [...select.options].find(o => o.text === a.dataset.interest);
       if (opt) select.value = opt.value;
     });
   });
 
   // Kursfinder
   const recs = {
-    kind:   {short:['KI-Entdecker','Drei spielerische Ferien-Vormittage für Klasse 4–6.','#jugendliche']},
-    teen:   {short:['KI-Führerschein','5 Einheiten à 90 Minuten mit Zertifikat – unser bewährter Kurs für Klasse 7–10.','#jugendliche']},
-    abi:    {short:['KI für Abi & Studium','Recherche, Facharbeit und Klausurvorbereitung mit KI – fair und regelkonform.','#jugendliche']},
-    me:     {short:['KI-Starter am Abend','Vier Abende, danach nutzen Sie KI sicher im Job.','#berufstaetige'],
-             mid:['KI-Praxistag','Ein Samstag, an dem Sie Ihre eigenen Aufgaben mit KI lösen.','#berufstaetige'],
-             long:['KI-Kompetenz-Woche','Fünf Tage in der Tiefe – als Bildungszeit geplant.','#berufstaetige']},
-    senior: {short:['Echt oder Fälschung?','Zwei Stunden, die vor Betrug mit KI schützen.','#senioren'],
-             mid:['KI ganz entspannt','Vier ruhige Vormittage in kleiner Gruppe am eigenen Gerät.','#senioren']},
-    team:   {short:['KI-Impuls','Drei Stunden für Ihr Team oder Ihre Führungsrunde.','#firmen'],
-             mid:['Team-Workshop','Ein Tag inkl. Prompt-Bibliothek und Teilnahmenachweis.','#firmen'],
-             long:['KI-Lernbegleitung','Drei Monate Begleitung mit internen KI-Ansprechpersonen.','#firmen']}
+    kind:   ['KI-Entdecker', 'Drei spielerische Ferien-Vormittage für Klasse 4–6.', '#jugendliche'],
+    teen:   ['KI-Führerschein', 'Unser Bestseller: 5 Einheiten mit Zertifikat für Klasse 7–10.', '#jugendliche'],
+    me:     ['KI-Starter am Abend oder KI-Praxistag', 'Vier Abende zum Einstieg oder ein kompakter Samstag mit Ihren eigenen Aufgaben.', '#berufstaetige'],
+    senior: ['KI ganz entspannt', 'Vier ruhige Vormittage in kleiner Gruppe. Für einen kurzen Einstieg eignet sich der Vortrag „Echt oder Fälschung?“.', '#senioren'],
+    team:   ['Angebote für Unternehmen', 'Workshops für Ihr Team, zugeschnitten auf Ihre Abläufe, mit Nachweis für den EU AI Act.', 'firmen.html']
   };
-  const state = {};
-  document.querySelectorAll('.chips').forEach(group => {
-    group.addEventListener('click', e => {
-      const btn = e.target.closest('.chip'); if (!btn) return;
-      group.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed','false'));
-      btn.setAttribute('aria-pressed','true');
-      state[group.dataset.q] = btn.dataset.v;
-      if (!state.who) return;
-      const r = recs[state.who];
-      const rec = r[state.time] || r.mid || r.short;
-      document.getElementById('finder-title').textContent = 'Unsere Empfehlung: ' + rec[0];
-      document.getElementById('finder-text').textContent = rec[1];
-      document.getElementById('finder-link').setAttribute('href', rec[2]);
-      document.getElementById('finder-result').classList.add('show');
-    });
+  document.querySelector('.chips').addEventListener('click', e => {
+    const btn = e.target.closest('.chip'); if (!btn) return;
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    const [title, text, href] = recs[btn.dataset.v];
+    document.getElementById('finder-title').textContent = 'Unsere Empfehlung: ' + title;
+    document.getElementById('finder-text').textContent = text;
+    document.getElementById('finder-link').setAttribute('href', href);
+    document.getElementById('finder-result').classList.add('show');
   });
 
   // Prototyp: Formular sendet nichts
   document.getElementById('interest-form').addEventListener('submit', e => {
     e.preventDefault();
-    document.getElementById('form-ok').style.display = 'block';
+    document.getElementById('form-ok').classList.add('show');
   });
 </script>
 </body>
