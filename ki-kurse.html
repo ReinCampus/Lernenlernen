@@ -46,6 +46,9 @@
   @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
   .about-grid .photo{aspect-ratio:1;}
   .about p{color:var(--ink-soft);}
+  .quote{margin:0; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:1.5rem 1.5rem 1.2rem; box-shadow:var(--shadow); display:flex; flex-direction:column;}
+  .quote blockquote{margin:0 0 1rem; font-size:1.08rem; line-height:1.55;}
+  .quote figcaption{margin-top:auto; font-weight:700; color:var(--c-jugend); font-size:.92rem;}
   .portrait{margin:0;}
   .portrait img{display:block; width:100%; height:auto; border-radius:var(--radius); box-shadow:var(--shadow);}
   .portrait figcaption{margin-top:.5rem; font-size:.85rem; color:var(--ink-soft);}
@@ -295,11 +298,20 @@
   <section id="stimmen" style="--c:var(--teal);">
     <div class="wrap">
       <span class="eyebrow">Stimmen</span>
-      <h2>Was Teilnehmende sagen</h2>
+      <h2>Was Eltern über den KI-Führerschein sagen</h2>
       <div class="quotes">
-        <div class="ph"><b>Platzhalter · Zitat Elternteil</b>Echtes Zitat nach dem KI-Führerschein, mit Vorname, Ort und Klassenstufe des Kindes, z. B. „Sabine, Kenzingen – Sohn in Klasse 8“. Nur mit Einverständnis.</div>
-        <div class="ph"><b>Platzhalter · Zitat Jugendliche/r</b>Kurzer O-Ton eines Teilnehmers: Was war überraschend, was nutzt er/sie jetzt anders?</div>
-        <div class="ph"><b>Platzhalter · Zahl oder Zitat</b>Z. B. Anzahl der Kinder, die den KI-Führerschein schon gemacht haben, oder ein Zitat einer Lehrkraft / Schule.</div>
+        <figure class="quote">
+          <blockquote>„Endlich jemand, der meinem Kind KI richtig erklärt hat, mit all den Risiken, aber auch den Möglichkeiten.“</blockquote>
+          <figcaption>Frau D. · Elternteil</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>„Vielen Dank dem Rein Campus, dass es so etwas vor Ort gibt. Toller Kurs, mein Sohn hatte richtig Spaß und konnte viel lernen.“</blockquote>
+          <figcaption>Frau S. · Mutter eines Teilnehmers</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>„KI mal den Kindern erklärt, was für Chancen darin liegen, und exemplarisch 1:1 mit ihnen die Fallstricke durchgegangen. Vielen Dank dafür.“</blockquote>
+          <figcaption>Herr M. · Elternteil</figcaption>
+        </figure>
       </div>
     </div>
   </section>
